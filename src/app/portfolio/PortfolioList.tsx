@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export interface PortfolioItem {
@@ -32,25 +32,23 @@ function Spinner() {
 }
 
 export default function PortfolioList() {
-  const searchParams = useSearchParams()
   const router = useRouter()
-
   const [items, setItems] = useState<PortfolioItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // read subCategory from URL (or default to All)
-  const urlSub = searchParams.get('subCategory') || 'All'
-  const [selectedSubCategory, setSelectedSubCategory] = useState(urlSub)
+  // track selected sub‑category and search term
+  const [selectedSubCategory, setSelectedSubCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
 
-  // sync state when URL changes
+  // on mount, read ?subCategory=… from URL
   useEffect(() => {
-    const current = searchParams.get('subCategory') || 'All'
-    setSelectedSubCategory(current)
-  }, [searchParams])
+    const params = new URLSearchParams(window.location.search)
+    const urlSub = params.get('subCategory') || 'All'
+    setSelectedSubCategory(urlSub)
+  }, [])
 
-  // fetch data
+  // fetch portfolio items
   useEffect(() => {
     setLoading(true)
     fetch(`${API_URL}/portfolio`)
@@ -79,11 +77,13 @@ export default function PortfolioList() {
     [items]
   )
 
-  const displayMain = useMemo(() => {
-    return mainCategories.length === 1
-      ? titleize(mainCategories[0])
-      : 'Portfolio'
-  }, [mainCategories])
+  const displayMain = useMemo(
+    () =>
+      mainCategories.length === 1
+        ? titleize(mainCategories[0])
+        : 'Portfolio',
+    [mainCategories]
+  )
 
   const pageTitle = useMemo(() => {
     if (selectedSubCategory === 'All') {
@@ -99,21 +99,22 @@ export default function PortfolioList() {
 
   const filtered = useMemo(() => {
     return items
-      .filter(i =>
+      .filter(item =>
         selectedSubCategory === 'All'
           ? true
-          : i.subCategory === selectedSubCategory
+          : item.subCategory === selectedSubCategory
       )
-      .filter(i =>
-        i.title.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      .filter(item =>
+        item.title.toLowerCase().includes(searchTerm.trim().toLowerCase())
       )
       .sort(
         (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt).getTime() -
+          new Date(a.createdAt).getTime()
       )
   }, [items, selectedSubCategory, searchTerm])
 
-  // Full‑screen spinner overlay while loading
+  // full‑screen overlay while loading
   if (loading) {
     return (
       <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
@@ -130,7 +131,6 @@ export default function PortfolioList() {
     )
   }
 
-  // Wrap everything in a min‑height flex column so footer is pushed down
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 container mx-auto px-4 py-8">
@@ -204,7 +204,9 @@ export default function PortfolioList() {
                   />
                 </div>
                 <div className="p-4">
-                  <h2 className="text-xl font-semibold">{item.title}</h2>
+                  <h2 className="text-xl font-semibold">
+                    {item.title}
+                  </h2>
                   <p className="text-gray-600 mt-1 line-clamp-2">
                     {item.description || 'No description'}
                   </p>

@@ -52,7 +52,7 @@ export default function PortfolioItemClient({ id }: Props) {
 
   // fetch portfolio item
   useEffect(() => {
-    if (!id) return
+    setLoading(true)
     fetch(`${API_URL}/portfolio/${id}`)
       .then(res => {
         if (!res.ok) throw new Error(`Status ${res.status}`)
@@ -64,9 +64,11 @@ export default function PortfolioItemClient({ id }: Props) {
   }, [id])
 
   // fade‑in panel
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-  // lightbox preloading & focus
+  // preload next/prev & focus close
   useEffect(() => {
     if (lightboxIndex !== null && item) {
       const next = new Image()
@@ -107,6 +109,7 @@ export default function PortfolioItemClient({ id }: Props) {
   const openLightbox = useCallback((idx: number) => setLightboxIndex(idx), [])
   const closeLightbox = useCallback(() => setLightboxIndex(null), [])
 
+  // early return states
   if (loading) return <SpinnerOverlay />
   if (error)
     return (
@@ -129,7 +132,7 @@ export default function PortfolioItemClient({ id }: Props) {
       {/* Backdrop + main panel */}
       <div
         onClick={close}
-        className="fixed inset-0 z-40 pt-10 bg-white/30 backdrop-blur-sm overflow-y-auto"
+        className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm overflow-y-auto"
       >
         <div
           onClick={e => e.stopPropagation()}
@@ -140,7 +143,7 @@ export default function PortfolioItemClient({ id }: Props) {
             ${mounted ? 'opacity-100' : 'opacity-0'}
           `}
         >
-          {/* Close icon */}
+          {/* Close button */}
           <button
             onClick={close}
             aria-label="Close"
@@ -193,7 +196,7 @@ export default function PortfolioItemClient({ id }: Props) {
               <p className="text-gray-700 leading-relaxed">{description}</p>
             )}
 
-            {/* Gallery */}
+            {/* Gallery Thumbnails */}
             <div className="space-y-6">
               {files.map((src, idx) => (
                 <div
@@ -265,13 +268,13 @@ export default function PortfolioItemClient({ id }: Props) {
 
           <div className="max-h-full max-w-full">
             <img
-              src={files[lightboxIndex]}
-              alt={`${title} full view ${lightboxIndex + 1}`}
+              src={files[lightboxIndex!]}
+              alt={`${title} full view ${lightboxIndex! + 1}`}
               className="max-h-[90vh] max-w-[90vw] object-contain"
               loading="eager"
             />
             <div className="mt-2 text-center text-white text-sm">
-              {lightboxIndex + 1} / {files.length} — {title}
+              {lightboxIndex! + 1} / {files.length} — {title}
             </div>
           </div>
         </div>
