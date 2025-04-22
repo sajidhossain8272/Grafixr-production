@@ -1,13 +1,12 @@
 'use client'
 
-// pages/portfolio/[id].tsx
 import React, {
   useEffect,
   useState,
   useCallback,
   useRef,
 } from 'react'
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 interface PortfolioItem {
   _id: string
@@ -18,6 +17,10 @@ interface PortfolioItem {
   mediaType: 'image' | 'video'
   files: string[]
   createdAt: string
+}
+
+interface Props {
+  id: string
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -36,23 +39,20 @@ function SpinnerOverlay() {
   )
 }
 
-export default function PortfolioItemPage() {
+export default function PortfolioItemClient({ id }: Props) {
   const router = useRouter()
-  const { id } = useParams()
 
-  // state
   const [item, setItem] = useState<PortfolioItem | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  // ref for lightbox close button
   const lightboxCloseRef = useRef<HTMLButtonElement>(null)
 
   // fetch portfolio item
   useEffect(() => {
-    if (!id || Array.isArray(id)) return
+    if (!id) return
     fetch(`${API_URL}/portfolio/${id}`)
       .then(res => {
         if (!res.ok) throw new Error(`Status ${res.status}`)
@@ -103,12 +103,10 @@ export default function PortfolioItemPage() {
     return () => document.removeEventListener('keydown', onKey)
   }, [onKey])
 
-  // close handlers
   const close = useCallback(() => router.push('/portfolio'), [router])
   const openLightbox = useCallback((idx: number) => setLightboxIndex(idx), [])
   const closeLightbox = useCallback(() => setLightboxIndex(null), [])
 
-  // early returns
   if (loading) return <SpinnerOverlay />
   if (error)
     return (
@@ -131,7 +129,7 @@ export default function PortfolioItemPage() {
       {/* Backdrop + main panel */}
       <div
         onClick={close}
-        className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm overflow-y-auto"
+        className="fixed inset-0 z-40 pt-10 bg-white/30 backdrop-blur-sm overflow-y-auto"
       >
         <div
           onClick={e => e.stopPropagation()}
@@ -195,7 +193,7 @@ export default function PortfolioItemPage() {
               <p className="text-gray-700 leading-relaxed">{description}</p>
             )}
 
-            {/* Gallery: one full‑width image per row */}
+            {/* Gallery */}
             <div className="space-y-6">
               {files.map((src, idx) => (
                 <div
@@ -265,7 +263,6 @@ export default function PortfolioItemPage() {
             </>
           )}
 
-          {/* Full‑screen image */}
           <div className="max-h-full max-w-full">
             <img
               src={files[lightboxIndex]}

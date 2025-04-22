@@ -113,7 +113,7 @@ export default function PortfolioList() {
       )
   }, [items, selectedSubCategory, searchTerm])
 
-  // 1) Full-screen spinner overlay while loading:
+  // Full‑screen spinner overlay while loading
   if (loading) {
     return (
       <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
@@ -130,10 +130,9 @@ export default function PortfolioList() {
     )
   }
 
-  // 2) Wrap everything in a min-h-screen flex column so footer is pushed down:
+  // Wrap everything in a min‑height flex column so footer is pushed down
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Content area */}
       <main className="flex-1 container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">{pageTitle}</h1>
 
@@ -218,8 +217,6 @@ export default function PortfolioList() {
           </div>
         )}
       </main>
-
-      {/* footer is rendered by parent layout; this component just ensures main fills */}
     </div>
   )
 }
