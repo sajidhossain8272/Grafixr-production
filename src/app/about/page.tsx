@@ -6,7 +6,7 @@ const AboutUs: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-16">
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        {/* Header with Icon */}
+        {/* Header with Icon test */}
         <div className="flex items-center justify-center mb-8">
           <FaRegEnvelope className="text-4xl text-gray-600 mr-3" />
           <h1 className="text-4xl font-bold text-gray-900">A Letter from Our Founder</h1>
