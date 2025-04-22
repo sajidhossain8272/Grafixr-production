@@ -1,233 +1,305 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import Link from 'next/link'
+import Image from 'next/image'
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react'
+import { usePathname } from 'next/navigation'
 import {
   FaBars,
   FaTimes,
   FaDesktop,
-  FaShoppingCart,
   FaVideo,
-} from "react-icons/fa";
+  FaCode,
+} from 'react-icons/fa'
+import clsx from 'clsx'
 
-// Define the category type returned from your API test
 interface Category {
-  _id: string;
-  mainCategory: string;
-  subCategories: string[];
+  _id: string
+  mainCategory: string
+  subCategories: string[]
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL!
+
+function titleize(str: string) {
+  return str
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
 }
 
 export default function Navigation() {
-  const pathname = usePathname();
-  const API_URL =  "https://grafixr-backend.vercel.app";
+  const pathname = usePathname()
+  const [categories, setCategories] = useState<Category[]>([])
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openCategory, setOpenCategory] = useState<string | null>(null)
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const navRef = useRef<HTMLElement>(null)
+  const mobileRef = useRef<HTMLDivElement>(null)
 
-  // Fetch dynamic categories on mount
+  // Fetch categories
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(`${API_URL}/admin/categories`);
-        if (!res.ok) throw new Error("Failed to fetch categories");
-        const data = await res.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+    fetch(`${API_URL}/admin/categories`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch categories')
+        return res.json() as Promise<Category[]>
+      })
+      .then(setCategories)
+      .catch(console.error)
+  }, [])
+
+  // Close dropdowns or mobile menu on outside click or Escape
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenCategory(null)
       }
-    };
-    fetchCategories();
-  }, [API_URL]);
+      if (
+        isMenuOpen &&
+        mobileRef.current &&
+        !mobileRef.current.contains(e.target as Node)
+      ) {
+        setIsMenuOpen(false)
+      }
+    }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpenCategory(null)
+        setIsMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [isMenuOpen])
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Prevent background scroll when mobile open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
 
-  // Helper to check if path is active (Exact match)
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(v => !v)
+  }, [])
+
+  const toggleCategory = useCallback((cat: string) => {
+    setOpenCategory(o => (o === cat ? null : cat))
+  }, [])
+
   const isActive = (path: string) =>
-    pathname === path
-      ? "text-white bg-gray-800 hover:text-white p-2 rounded-lg font-semibold"
-      : "";
+    path === '/' ? pathname === '/' : pathname.startsWith(path)
 
   return (
     <>
-      <nav className='sticky top-0 bg-white border-b border-gray-200 shadow-lg z-40'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex justify-between h-16 items-center'>
+      <nav
+        ref={navRef}
+        className="sticky top-0 bg-white border-b border-gray-200 shadow z-50"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <div className='flex-shrink-0'>
-              <Link href='/'>
-                <Image
-                  src='/GrafiXr-logo-transparent-white.png'
-                  alt='Logo'
-                  width={500}
-                  height={500}
-                  className='w-auto h-10 sm:h-12 md:h-14 lg:h-16'
-                  priority
-                />
-              </Link>
-            </div>
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                src="/GrafiXr-logo-transparent-white.png"
+                alt="GrafiXr"
+                width={240}
+                height={48}
+                className="h-12 w-auto"
+                priority
+              />
+            </Link>
 
-            {/* Desktop Menu */}
-            <div className='hidden md:flex space-x-8 items-center font-bold'>
-              <Link
-                href='/'
-                className={`text-gray-900 transition-colors duration-300 hover:scale-105 ${isActive(
-                  "/"
-                )}`}
-              >
-                Home
-              </Link>
-              <Link
-                href='/about'
-                className={`text-gray-900 transition-colors duration-300 hover:scale-105 ${isActive(
-                  "/about"
-                )}`}
-              >
-                About Us
-              </Link>
-              <Link
-                href='/portfolio'
-                className={`text-gray-900 transition-colors duration-300 hover:scale-105 ${isActive(
-                  "/portfolio"
-                )}`}
-              >
-                Portfolio
-              </Link>
-
-              {categories.map((cat) => (
-                <div
-                  key={cat._id}
-                  className='relative group'
-                  onMouseEnter={() => setHoveredCategory(cat.mainCategory)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                >
-                  <button className='flex items-center gap-1 text-gray-900 hover:text-blue-600 focus:outline-none transition-colors'>
-                    {/* Optionally add icons for known categories */}
-                    {cat.mainCategory === "graphic-design" && <FaDesktop />}
-                    {cat.mainCategory === "video-editing" && <FaVideo />}
-                    {cat.mainCategory === "web-development" && (
-                      <FaShoppingCart />
-                    )}
-                    <span className='capitalize'>
-                      {cat.mainCategory.replace("-", " ")}
-                    </span>
-                    <svg
-                      className='h-4 w-4 transition-transform duration-300 group-hover:rotate-180'
-                      fill='none'
-                      stroke='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M19 9l-7 7-7-7'
-                      />
-                    </svg>
-                  </button>
-                  {hoveredCategory === cat.mainCategory && (
-                    <div className='absolute left-0 mt-2 w-max bg-white border border-gray-200 rounded-md shadow-xl transition-opacity duration-300 z-10'>
-                      <ul className='p-2 space-y-1'>
-                        {cat.subCategories.map((sub) => (
-                          <li key={sub}>
-                            <Link
-                              // Updated: separate query parameters for mainCategory and subCategory
-                              href={`/portfolio?mainCategory=${cat.mainCategory}&subCategory=${sub}`}
-                              className='block px-3 py-1 text-gray-700 hover:bg-gray-100 transition-colors'
-                            >
-                              {sub}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            {/* Desktop menu */}
+            <ul
+              role="menubar"
+              className="hidden md:flex items-center space-x-10 font-semibold text-lg"
+            >
+              <li role="none">
+                <Link
+                  href="/"
+                  className={clsx(
+                    'px-3 py-2 rounded transition',
+                    isActive('/')
+                      ? 'bg-gray-800 text-white'
+                      : 'text-gray-900 hover:text-blue-600'
                   )}
-                </div>
-              ))}
-              <Link
-                href='/contact'
-                className={`text-gray-900 transition-colors duration-300 hover:scale-105 ${isActive(
-                  "/contact"
-                )}`}
-              >
-                Contact Us
-              </Link>
-            </div>
+                >
+                  Home
+                </Link>
+              </li>
 
-            {/* Mobile Menu Button */}
-            <div className='flex items-center md:hidden'>
-              <button
-                onClick={toggleMenu}
-                className='inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-gray-700 focus:outline-none transition-colors duration-300'
-              >
-                {isMenuOpen ? (
-                  <FaTimes className='w-6 h-6' />
-                ) : (
-                  <FaBars className='w-6 h-6' />
-                )}
-              </button>
-            </div>
+              <li role="none">
+                <Link
+                  href="/portfolio"
+                  className={clsx(
+                    'px-3 py-2 rounded transition',
+                    isActive('/portfolio')
+                      ? 'bg-gray-800 text-white'
+                      : 'text-gray-900 hover:text-blue-600'
+                  )}
+                >
+                  Portfolio
+                </Link>
+              </li>
+
+              {/* Category dropdowns */}
+              {categories.map(cat => (
+                <li key={cat._id} role="none" className="relative">
+                  <button
+                    onClick={() => toggleCategory(cat.mainCategory)}
+                    className="flex items-center gap-2 px-3 py-2 rounded transition text-gray-900 hover:text-blue-600 focus:outline-none"
+                    aria-haspopup="true"
+                    aria-expanded={openCategory === cat.mainCategory}
+                  >
+                    {cat.mainCategory === 'graphic-design' && <FaDesktop />}
+                    {cat.mainCategory === 'video-editing' && <FaVideo />}
+                    {cat.mainCategory === 'web-development' && <FaCode />}
+                    {titleize(cat.mainCategory)}
+                    <FaTimes
+                      className={clsx(
+                        'ml-1 transform transition-transform',
+                        openCategory === cat.mainCategory
+                          ? 'rotate-45'
+                          : 'rotate-0'
+                      )}
+                    />
+                  </button>
+                  {openCategory === cat.mainCategory && (
+                    <ul
+                      role="menu"
+                      className="absolute left-0 top-full mt-2 min-w-[180px] rounded-md border border-gray-200 bg-white shadow-lg py-2 z-20"
+                    >
+                      {cat.subCategories.map(sub => (
+                        <li key={sub} role="none">
+                          <Link
+                            href={`/portfolio?subCategory=${encodeURIComponent(
+                              sub
+                            )}`}
+                            role="menuitem"
+                            onClick={() => setOpenCategory(null)}
+                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          >
+                            {titleize(sub)}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+
+              <li role="none">
+                <Link
+                  href="/about"
+                  className={clsx(
+                    'px-3 py-2 rounded transition',
+                    isActive('/about')
+                      ? 'bg-gray-800 text-white'
+                      : 'text-gray-900 hover:text-blue-600'
+                  )}
+                >
+                  About Us
+                </Link>
+              </li>
+              <li role="none">
+                <Link
+                  href="/contact"
+                  className={clsx(
+                    'px-3 py-2 rounded transition',
+                    isActive('/contact')
+                      ? 'bg-gray-800 text-white'
+                      : 'text-gray-900 hover:text-blue-600'
+                  )}
+                >
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              className="md:hidden p-2 text-gray-900 hover:text-gray-700 focus:outline-none"
+            >
+              {isMenuOpen ? (
+                <FaTimes className="w-6 h-6" />
+              ) : (
+                <FaBars className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu – Fullscreen Overlay */}
+      {/* Mobile overlay */}
       {isMenuOpen && (
-        <div className='md:hidden fixed inset-0 bg-gradient-to-br from-gray-900 to-black text-white z-20 overflow-auto p-4 pt-20'>
-          <Link
-            href='/about'
-            className={`block text-2xl font-bold hover:text-gray-300 mb-4 ${isActive(
-              "/about"
-            )}`}
+        <div
+          ref={mobileRef}
+          className="fixed inset-0 z-50 bg-gradient-to-br from-gray-900 to-black text-white p-6 pt-24 overflow-auto"
+        >
+          {/* Close icon */}
+          <button
             onClick={toggleMenu}
+            aria-label="Close menu"
+            className="absolute top-6 right-6 p-2 text-white hover:text-gray-300 focus:outline-none"
           >
-            About Us
-          </Link>
-          <Link
-            href='/portfolio'
-            className={`block text-2xl font-bold hover:text-gray-300 mt-4 ${isActive(
-              "/portfolio"
-            )}`}
-            onClick={toggleMenu}
-          >
-            Portfolio
-          </Link>
-          {categories.map((cat) => (
-            <div key={cat._id} className='mb-4'>
-              <h3 className='text-xl font-semibold capitalize'>
-                {cat.mainCategory.replace("-", " ")}
-              </h3>
-              <ul className='ml-4 mt-2 space-y-2'>
-                {cat.subCategories.map((sub) => (
-                  <li key={sub}>
-                    <Link
-                      // Updated: separate query parameters for mainCategory and subCategory on mobile
-                      href={`/portfolio?mainCategory=${cat.mainCategory}&subCategory=${sub}`}
-                      onClick={toggleMenu}
-                      className='block hover:text-gray-300'
-                    >
-                      {sub}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          <Link
-            href='/contact'
-            className={`block text-2xl font-bold hover:text-gray-300 mt-4 ${isActive(
-              "/contact"
-            )}`}
-            onClick={toggleMenu}
-          >
-            Contact Us
-          </Link>
+            <FaTimes className="w-6 h-6" />
+          </button>
+
+          <ul className="space-y-8 text-xl font-semibold">
+            <li>
+              <Link href="/" onClick={toggleMenu} className="block hover:text-gray-300">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/portfolio" onClick={toggleMenu} className="block hover:text-gray-300">
+                Portfolio
+              </Link>
+            </li>
+            {categories.map(cat => (
+              <li key={cat._id}>
+                <div className="mb-3 text-2xl">{titleize(cat.mainCategory)}</div>
+                <ul className="ml-4 space-y-2 text-lg">
+                  {cat.subCategories.map(sub => (
+                    <li key={sub}>
+                      <Link
+                        href={`/portfolio?subCategory=${encodeURIComponent(sub)}`}
+                        onClick={toggleMenu}
+                        className="block hover:text-gray-300"
+                      >
+                        {titleize(sub)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+            <li>
+              <Link href="/about" onClick={toggleMenu} className="block hover:text-gray-300">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={toggleMenu} className="block hover:text-gray-300">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
         </div>
       )}
     </>
-  );
+  )
 }
