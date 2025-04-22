@@ -179,20 +179,23 @@ export default function Navigation() {
                       role="menu"
                       className="absolute left-0 top-full mt-2 min-w-[180px] rounded-md border border-gray-200 bg-white shadow-lg py-2 z-20"
                     >
-                      {cat.subCategories.map(sub => (
-                        <li key={sub} role="none">
-                          <Link
-                            href={`/portfolio?subCategory=${encodeURIComponent(
-                              sub
-                            )}`}
-                            role="menuitem"
-                            onClick={() => setOpenCategory(null)}
-                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                          >
-                            {titleize(sub)}
-                          </Link>
-                        </li>
-                      ))}
+                      {cat.subCategories.map(sub => {
+                        const qs = new URLSearchParams({
+                          subCategory: sub,
+                        }).toString() // => "subCategory=Logo+Design"
+                        return (
+                          <li key={sub} role="none">
+                            <Link
+                              href={`/portfolio?${qs}`}
+                              role="menuitem"
+                              onClick={() => setOpenCategory(null)}
+                              className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                            >
+                              {titleize(sub)}
+                            </Link>
+                          </li>
+                        )
+                      })}
                     </ul>
                   )}
                 </li>
@@ -269,24 +272,29 @@ export default function Navigation() {
                 Portfolio
               </Link>
             </li>
+
             {categories.map(cat => (
               <li key={cat._id}>
                 <div className="mb-3 text-2xl">{titleize(cat.mainCategory)}</div>
                 <ul className="ml-4 space-y-2 text-lg">
-                  {cat.subCategories.map(sub => (
-                    <li key={sub}>
-                      <Link
-                        href={`/portfolio?subCategory=${encodeURIComponent(sub)}`}
-                        onClick={toggleMenu}
-                        className="block hover:text-gray-300"
-                      >
-                        {titleize(sub)}
-                      </Link>
-                    </li>
-                  ))}
+                  {cat.subCategories.map(sub => {
+                    const qs = new URLSearchParams({ subCategory: sub }).toString()
+                    return (
+                      <li key={sub}>
+                        <Link
+                          href={`/portfolio?${qs}`}
+                          onClick={toggleMenu}
+                          className="block hover:text-gray-300"
+                        >
+                          {titleize(sub)}
+                        </Link>
+                      </li>
+                    )
+                  })}
                 </ul>
               </li>
             ))}
+
             <li>
               <Link href="/about" onClick={toggleMenu} className="block hover:text-gray-300">
                 About Us

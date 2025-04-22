@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 export interface PortfolioItem {
@@ -33,20 +33,14 @@ function Spinner() {
 
 export default function PortfolioList() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  // Grab the subCategory param on every render:
+  const selectedSubCategory = searchParams.get('subCategory') ?? 'All'
+
   const [items, setItems] = useState<PortfolioItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  // track selected sub‑category and search term
-  const [selectedSubCategory, setSelectedSubCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
-
-  // on mount, read ?subCategory=… from URL
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const urlSub = params.get('subCategory') || 'All'
-    setSelectedSubCategory(urlSub)
-  }, [])
 
   // fetch portfolio items
   useEffect(() => {
@@ -105,7 +99,9 @@ export default function PortfolioList() {
           : item.subCategory === selectedSubCategory
       )
       .filter(item =>
-        item.title.toLowerCase().includes(searchTerm.trim().toLowerCase())
+        item.title
+          .toLowerCase()
+          .includes(searchTerm.trim().toLowerCase())
       )
       .sort(
         (a, b) =>
@@ -114,7 +110,7 @@ export default function PortfolioList() {
       )
   }, [items, selectedSubCategory, searchTerm])
 
-  // full‑screen overlay while loading
+  // Full‑screen overlay while loading
   if (loading) {
     return (
       <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
@@ -148,10 +144,10 @@ export default function PortfolioList() {
               value={selectedSubCategory}
               onChange={e => {
                 const v = e.target.value
-                setSelectedSubCategory(v)
                 const url = new URL(window.location.href)
                 if (v === 'All') url.searchParams.delete('subCategory')
                 else url.searchParams.set('subCategory', v)
+                // client nav
                 router.push(url.pathname + url.search)
               }}
             >

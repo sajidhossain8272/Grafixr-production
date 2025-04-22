@@ -132,7 +132,7 @@ export default function PortfolioItemClient({ id }: Props) {
       {/* Backdrop + main panel */}
       <div
         onClick={close}
-        className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm overflow-y-auto"
+        className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm overflow-y-auto pt-10"
       >
         <div
           onClick={e => e.stopPropagation()}
