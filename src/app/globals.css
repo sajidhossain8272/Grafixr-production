@@ -48,3 +48,12 @@ body {
 .glow-effect:hover::before {
   opacity: 1;
 }
+
+/* globals.css */
+.glow-green {
+  box-shadow: 0 0 12px 4px rgba(34, 197, 94, 0.6), 0 0 20px 10px rgba(34, 197, 94, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.glow-green:hover {
+  box-shadow: 0 0 18px 6px rgba(34, 197, 94, 0.9), 0 0 30px 14px rgba(34, 197, 94, 0.4);
+}

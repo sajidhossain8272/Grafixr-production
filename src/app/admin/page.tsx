@@ -11,6 +11,11 @@ import AdminNavigation from "./AdminNavigation";
 import AdminUploadForm from "./AdminUploadForm";
 import AdminList from "./AdminList";
 import AdminCategories from "./AdminCategories";
+import AdminReviewForm from "./AdminReviewForm";
+import ReviewManager from "./ReviewManager"; // ✅ Import
+import { toast } from 'react-toastify';
+
+
 
 interface PortfolioItem {
   _id: string;
@@ -30,9 +35,11 @@ interface Category {
   createdAt: string;
 }
 
+
 export default function AdminPage() {
   const [activeTab, setActiveTab] =
-    useState<"upload" | "list" | "categories">("upload");
+  useState<"upload" | "list" | "categories" | "reviews" | "reviewManager">("upload")
+
 
   // Categories
   const [categories, setCategories] = useState<Category[]>([]);
@@ -195,9 +202,10 @@ export default function AdminPage() {
         prev.filter((i) => i._id !== id)
       );
     } catch (e: unknown) {
-      alert(e instanceof Error ? e.message : "Unknown");
+      toast.error(e instanceof Error ? e.message : "Unknown");
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 mx-auto max-w-7xl">
@@ -205,6 +213,10 @@ export default function AdminPage() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
+      {activeTab === "reviews" && <AdminReviewForm />}
+      {activeTab === "reviewManager" && <ReviewManager />}
+
+
 
       {activeTab === "upload" && (
         <AdminUploadForm

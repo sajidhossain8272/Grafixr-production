@@ -5,6 +5,8 @@ import React, {
   FormEvent,
   KeyboardEvent,
 } from "react";
+import { toast } from 'react-toastify';
+
 
 interface Category {
   _id: string;
@@ -92,7 +94,7 @@ const AdminCategories: React.FC<AdminCategoriesProps> = ({
       }
       await refresh();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Unknown error");
+      toast.error(err instanceof Error ? err.message : "Unknown error");
     }
   };
 
@@ -115,7 +117,7 @@ const AdminCategories: React.FC<AdminCategoriesProps> = ({
   const handleUpdateSubCategories = async () => {
     if (!editCategoryId) return;
     if (editSubCategories.length === 0) {
-      alert("Enter at least one subcategory or cancel.");
+      toast.warning("Enter at least one subcategory or cancel.");
       return;
     }
 
@@ -136,7 +138,7 @@ const AdminCategories: React.FC<AdminCategoriesProps> = ({
       cancelEditing();
       await refresh();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Unknown error");
+      toast.error(err instanceof Error ? err.message : "Unknown error");
     }
   };
 

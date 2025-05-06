@@ -169,8 +169,8 @@ export default function Navigation() {
                       className={clsx(
                         'ml-1 transform transition-transform',
                         openCategory === cat.mainCategory
-                          ? 'rotate-45'
-                          : 'rotate-0'
+                          ? 'rotate-0'
+                          : 'rotate-45'
                       )}
                     />
                   </button>
