@@ -35,7 +35,7 @@ export default function ClientsSection() {
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">Trusted by Leading Brands</h2>
         <p className="text-gray-600 mb-10">
-          We've had the privilege of working with global leaders in tech and media.
+          We&apos;ve had the privilege of working with global leaders in tech and media.
         </p>
         <div className="flex flex-wrap justify-center gap-10 items-center">
           {clients.map((client) => (

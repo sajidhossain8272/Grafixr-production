@@ -14,8 +14,8 @@ import CTASection from "@/components/CTASection";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TechStackSection from "@/components/TechStackSection";
-import ClientsSection from "@/components/ClientsSection";
+// import TechStackSection from "@/components/TechStackSection";
+// import ClientsSection from "@/components/ClientsSection";
 
 interface PortfolioItem {
   _id: string;
