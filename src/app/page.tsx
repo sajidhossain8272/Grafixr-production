@@ -14,6 +14,8 @@ import CTASection from "@/components/CTASection";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TechStackSection from "@/components/TechStackSection";
+import ClientsSection from "@/components/ClientsSection";
 
 interface PortfolioItem {
   _id: string;
@@ -183,6 +185,8 @@ export default function Home() {
         <Services />
       </section>
 
+      {/* <TechStackSection /> */}
+
       {/* Stats & CTA */}
       <section className='bg-gray-50'>
         <div className='container mx-auto px-4 py-16 flex flex-col items-center space-y-6'>
@@ -206,6 +210,7 @@ export default function Home() {
       </section>
 
       {/* Client Reviews */}
+      {/* <ClientsSection /> */}
       <ClientReviews />
 
       <CTASection />
