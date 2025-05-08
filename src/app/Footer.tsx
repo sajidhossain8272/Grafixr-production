@@ -25,8 +25,8 @@ export default function Footer(): JSX.Element {
         {/* Contact Info */}
         <div className="md:w-1/3 text-sm space-y-2">
           <p><strong>Address:</strong> Kawla, Dhaka, Bangladesh</p>
-          <p><strong>Email:</strong> <a href="mailto:grafixr07@gmail.com" className="hover:underline">grafixr07@gmail.com</a></p>
-          <p><strong>Phone:</strong> <a href="tel:+8801628083370" className="hover:underline">+8801628083370</a></p>
+          <p><strong>Email:</strong> <a href="mailto:sajidhossain8272@gmail.com" className="hover:underline">grafixr07@gmail.com</a></p>
+          <p><strong>Phone:</strong> <a href="tel:+8801329530468" className="hover:underline">+8801329530468</a></p>
         </div>
 
         {/* Navigation Links */}

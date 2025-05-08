@@ -183,7 +183,7 @@ const Page: NextPage = () => {
 
       {/* Floating Email Icon */}
       <a
-        href='mailto:Grafixr07@gmail.com'
+        href='mailto:sajidhossain8272@gmail.com'
         className='group fixed bottom-4 left-4 z-50'
         target='_blank'
         rel='noopener noreferrer'
@@ -192,7 +192,7 @@ const Page: NextPage = () => {
           <FaEnvelope className='w-6 h-6' />
         </div>
         <div className='absolute bottom-[60px] left-[50px] transform -translate-x-1/2 bg-blue-700 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow'>
-          Grafixr07@gmail.com
+          sajidhossain8272@gmail.com
         </div>
       </a>
     </div>
