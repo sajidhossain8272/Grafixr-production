@@ -38,7 +38,7 @@ const WhatsApp: React.FC = () => (
     rel="noopener noreferrer"
   >
     <MotionDiv
-      className="bg-green-500 text-white rounded-full p-4 cursor-pointer"
+      className="bg-green-500 text-white rounded-full lg:p-4 p-5 cursor-pointer"
       animate={glowKeyframes}
       transition={glowTransition}
     >

@@ -4,27 +4,26 @@ import React, { useRef, useEffect, forwardRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { FiChevronDown } from "react-icons/fi";
-import { useHeroVisibility } from "@/components/HeroVisibilityContext";
+// import { useHeroVisibility } from "@/components/HeroVisibilityContext";
 
-import Logo1File from "/public/logo1.jpg";
-import Logo2File from "/public/logo2.jpg";
-import Logo3File from "/public/logo3.jpg";
+import Logo1File from "/public/img.webp";
+import Logo2File from "/public/img.webp";
+import Logo3File from "/public/img.webp";
 
 export default function HeroSection() {
   const section2Ref = useRef<HTMLDivElement | null>(null);
   const section3Ref = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
-  const { setHeroVisible } = useHeroVisibility();
 
   // Detect visibility of HeroSection to toggle navbar
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.isIntersecting),
+      ([entry]) => (entry.isIntersecting),
       { threshold: 0.3 }
     );
     if (heroRef.current) observer.observe(heroRef.current);
     return () => observer.disconnect();
-  }, [setHeroVisible]);
+  }, );
 
   const scrollToNext = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
