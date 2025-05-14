@@ -5,6 +5,7 @@ import Providers from "./providers"; // <-- your new client component
 import Navigation from "@/components/Navigation";
 import Footer from "./Footer";
 import WhatsApp from "@/components/WhatsApp";
+import { HeroVisibilityProvider } from "@/components/HeroVisibilityContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,11 +34,15 @@ export default function RootLayout({
       >
         {/* Wrap everything in our client-based ThemeProvider */}
         <Providers>
-          <Navigation />
+                    <HeroVisibilityProvider>
+
+          <Navigation  />
           {children}
           {/* WhatsApp Icon - Bottom Right */}
         <WhatsApp />
           <Footer />
+                    </HeroVisibilityProvider>
+
         </Providers>
       </body>
     </html>

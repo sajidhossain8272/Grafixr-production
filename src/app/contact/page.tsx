@@ -192,7 +192,7 @@ const Page: NextPage = () => {
           <FaEnvelope className='w-6 h-6' />
         </div>
         <div className='absolute bottom-[60px] left-[50px] transform -translate-x-1/2 bg-blue-700 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow'>
-          sajidhossain8272@gmail.com
+          grafixr07@gmail.com
         </div>
       </a>
     </div>

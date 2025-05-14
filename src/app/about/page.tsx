@@ -17,7 +17,7 @@ const AboutUs: React.FC = () => {
           <p>Dear Valued Clients,</p>
 
           <p>
-            I am deeply honored to share our journey and vision with you. My name is Sajid, and my story began seven years ago when I started as an individual freelance graphics designer. With little more than a passion for creativity and a burning desire to help brands communicate their unique stories, I embarked on a journey that would eventually transform both my life and the way businesses experience design.
+            I am deeply honored to share our journey and vision with you. My name is Rony, and my story began seven years ago when I started as an individual freelance graphics designer. With little more than a passion for creativity and a burning desire to help brands communicate their unique stories, I embarked on a journey that would eventually transform both my life and the way businesses experience design.
           </p>
 
           <p>

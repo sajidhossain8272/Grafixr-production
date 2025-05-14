@@ -57,3 +57,15 @@ body {
 .glow-green:hover {
   box-shadow: 0 0 18px 6px rgba(34, 197, 94, 0.9), 0 0 30px 14px rgba(34, 197, 94, 0.4);
 }
+
+/* globals.css */
+.hero-backdrop {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+}
+
+section {
+  scroll-snap-type: y mandatory;
+}
+.sticky {
+  scroll-snap-align: start;
+}
