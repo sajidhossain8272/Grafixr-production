@@ -3,6 +3,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import type { NextPage } from "next";
 import { FaEnvelope, FaCheckCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 interface FormData {
   name: string;
@@ -64,7 +65,7 @@ const Page: NextPage = () => {
       } else {
         setError(result.error || "Submission failed");
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError("An error occurred. Please try again.");
     } finally {
@@ -73,129 +74,134 @@ const Page: NextPage = () => {
   };
 
   return (
-    <div className='min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6'>
-      <div className='max-w-4xl w-full bg-white shadow-lg rounded-lg px-10 py-14'>
-        <h1 className='text-4xl font-bold text-center mb-2'>
-          Start Your Project with Grafi<span className="text-[#00CFFF]">xr</span>
+    <section className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white flex items-center justify-center py-20 px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-4xl bg-white/70 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl p-10"
+      >
+        <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-2">
+          Start Your Project with <span className="text-[#00CFFF]">Grafixr</span>
         </h1>
-        <p className='text-center text-sm text-gray-600 mb-6'>
-          We typically reply within 24 hours. Let&apos;s bring your ideas to
-          life.
+        <p className="text-center text-gray-600 mb-6">
+          We typically reply within 24 hours. Let’s bring your ideas to life.
         </p>
 
-        {/* Success Message */}
         {success && (
-          <div className='bg-green-100 text-green-800 p-4 rounded mb-4 flex items-center gap-2'>
-            <FaCheckCircle className='text-green-600' />
+          <div className="bg-green-100 text-green-800 p-4 rounded mb-4 flex items-center gap-2">
+            <FaCheckCircle className="text-green-600" />
             Your inquiry has been submitted! We&apos;ll get back to you shortly.
           </div>
         )}
 
-        {/* Error Message */}
         {error && (
-          <div className='bg-red-100 text-red-700 p-4 rounded mb-4'>
+          <div className="bg-red-100 text-red-700 p-4 rounded mb-4">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className='space-y-6'>
-          <div className='flex flex-wrap -mx-4'>
-            <div className='w-full md:w-1/2 px-4 space-y-6'>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex flex-wrap -mx-4">
+            <div className="w-full md:w-1/2 px-4 space-y-6">
               <input
-                type='text'
-                name='name'
-                placeholder='Full Name *'
+                type="text"
+                name="name"
+                placeholder="Full Name *"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
-                type='email'
-                name='email'
-                placeholder='Email Address *'
+                type="email"
+                name="email"
+                placeholder="Email Address *"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
-                type='tel'
-                name='phone'
-                placeholder='Phone Number'
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleChange}
-                className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div className='w-full md:w-1/2 px-4 space-y-6'>
+
+            <div className="w-full md:w-1/2 px-4 space-y-6">
               <select
-                name='projectType'
+                name="projectType"
                 value={formData.projectType}
                 onChange={handleChange}
                 required
-                className='w-full border border-gray-100 shadow p-3 rounded text-gray-700 bg-white focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value=''>Select Project Type *</option>
-                <option value='graphicDesign'>Graphic Design</option>
-                <option value='webDevelopment'>Web Development</option>
-                <option value='both'>Both</option>
+                <option value="">Select Project Type *</option>
+                <option value="graphicDesign">Graphic Design</option>
+                <option value="webDevelopment">Web Development</option>
+                <option value="both">Both</option>
               </select>
               <input
-                type='text'
-                name='budget'
-                placeholder='Estimated Budget (e.g. $500 - $3000)'
+                type="text"
+                name="budget"
+                placeholder="Estimated Budget (e.g. $500 - $3000)"
                 value={formData.budget}
                 onChange={handleChange}
-                className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
-                type='date'
-                name='deadline'
+                type="date"
+                name="deadline"
                 value={formData.deadline}
                 onChange={handleChange}
-                className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+                className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
 
           <textarea
-            name='requirements'
+            name="requirements"
             rows={5}
             required
-            placeholder='Describe your project in detail. What do you need? What are your goals, style preferences, or specific features? Share as much as you can to help us understand your vision.'
+            placeholder="Describe your project in detail. What do you need? What are your goals, style preferences, or specific features? Share as much as you can to help us understand your vision."
             value={formData.requirements}
             onChange={handleChange}
-            className='w-full border border-gray-100 shadow p-3 rounded focus:ring-1 focus:ring-blue-500'
+            className="w-full border border-gray-200 shadow-sm p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           ></textarea>
 
           <button
-            type='submit'
+            type="submit"
             disabled={submitting}
-            className={`w-full py-3 font-semibold rounded text-white transition cursor-pointer ${
-              submitting ? "bg-gray-500" : "bg-[#00CFFF] hover:bg-[#00B8E6]"
+            className={`w-full py-3 font-semibold rounded-lg transition-all duration-300 ${
+              submitting
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#00CFFF] hover:bg-[#00B8E6] text-white"
             }`}
           >
             {submitting ? "Submitting..." : "Contact Us!"}
           </button>
         </form>
-      </div>
+      </motion.div>
 
       {/* Floating Email Icon */}
       <a
-        href='mailto:sajidhossain8272@gmail.com'
-        className='group fixed bottom-4 left-4 z-50'
-        target='_blank'
-        rel='noopener noreferrer'
+        href="mailto:grafixr07@gmail.com"
+        className="group fixed bottom-4 left-4 z-50"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        <div className='bg-blue-600 text-white rounded-full p-4 shadow-md hover:scale-105 transition-transform'>
-          <FaEnvelope className='w-6 h-6' />
+        <div className="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:scale-105 transition-transform">
+          <FaEnvelope className="w-6 h-6" />
         </div>
-        <div className='absolute bottom-[60px] left-[50px] transform -translate-x-1/2 bg-blue-700 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow'>
+        <div className="absolute bottom-[60px] left-14 transform -translate-x-1/2 bg-blue-700 text-white text-xs rounded py-1 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
           grafixr07@gmail.com
         </div>
       </a>
-    </div>
+    </section>
   );
 };
 

@@ -6,6 +6,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "./Footer";
 import WhatsApp from "@/components/WhatsApp";
 
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Comic+Neue&family=Pacifico&family=Bangers&family=Fredericka+the+Great&family=Rubik+Doodle+Shadow&family=Indie+Flower&family=Permanent+Marker&display=swap" rel="stylesheet" />
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

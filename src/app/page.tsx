@@ -127,62 +127,71 @@
         {/* </section> */}
 
         {/* Featured Projects */}
-        <section className='py-16 px-4'>
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className='text-4xl font-bold text-center mb-4'
-          >
-            Featured Projects
-          </motion.h2>
-          <p className='text-center text-gray-700 mb-8 max-w-2xl mx-auto'>
-            These are our most recent and exciting projects. Take a look at what
-            we’ve been working on!
-          </p>
+       <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-white">
+  <motion.h2
+    initial={{ opacity: 0, y: -20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="text-4xl font-bold text-center mb-4"
+  >
+    Recent Projects
+  </motion.h2>
+  <p className="text-center text-gray-300 mb-10 max-w-2xl mx-auto">
+    These are our most recent and exciting projects. Take a look at what we’ve been working on!
+  </p>
 
-          {loadingLatest ? (
-            <Spinner />
-          ) : errorLatest ? (
-            <p className='text-center text-red-500'>{errorLatest}</p>
-          ) : (
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto'>
-              {latest.map((item, idx) => (
-                <Link
-                  key={item._id}
-                  href={`/portfolio?subCategory=${encodeURIComponent(
-                    item.subCategory
-                  )}`}
-                  className='block bg-gray-100 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow'
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: idx * 0.2 }}
-                    viewport={{ once: true }}
-                    className='relative w-full overflow-hidden'
-                    style={{ aspectRatio: "1 / 1" }}
-                  >
-                    <Image
-                      src={item.files[0]}
-                      alt={item.title}
-                      fill
-                      className='object-contain'
-                      sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
-                      priority={idx === 0}
-                    />
-                  </motion.div>
-                  <div className='p-4'>
-                    <h3 className='text-xl font-bold'>{item.title}</h3>
-                    <p className='text-gray-600 line-clamp-2'>
-                      {item.description || "No description"}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+  {loadingLatest ? (
+    <Spinner />
+  ) : errorLatest ? (
+    <p className="text-center text-red-500">{errorLatest}</p>
+  ) : (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
+      {latest.map((item, idx) => (
+        <Link
+          key={item._id}
+          href={`/portfolio?subCategory=${encodeURIComponent(item.subCategory)}`}
+          className="group"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: idx * 0.2 }}
+            viewport={{ once: true }}
+            className="relative rounded-xl overflow-hidden p-4 bg-white/10 backdrop-blur-md border border-white/20 shadow-xl hover:scale-[1.02] transition-transform duration-300 hover:shadow-[0_10px_60px_rgba(255,255,255,0.2)]"
+          >
+            {/* Gradient glow behind */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 opacity-20 blur-lg rounded-xl pointer-events-none z-0"></div>
+
+            {/* Project Image */}
+            <div
+              className="relative w-full rounded-lg overflow-hidden aspect-[4/3] bg-black/10 z-10"
+              style={{ aspectRatio: "4 / 3" }}
+            >
+              <Image
+                src={item.files[0]}
+                alt={item.title}
+                fill
+                className="object-contain"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                priority={idx === 0}
+              />
             </div>
-          )}
-        </section>
+
+            {/* Project Info */}
+            <div className="mt-4 z-10 relative">
+              <h3 className="text-xl font-bold text-white">{item.title}</h3>
+              <p className="text-sm text-gray-300 mt-1 line-clamp-2">
+                {item.description || "No description"}
+              </p>
+            </div>
+          </motion.div>
+        </Link>
+      ))}
+    </div>
+  )}
+</section>
+
 
         {/* Services */}
         <section>
@@ -192,26 +201,28 @@
         {/* <TechStackSection /> */}
 
         {/* Stats & CTA */}
-        <section className='bg-gray-50'>
-          <div className='container mx-auto px-4 py-16 flex flex-col items-center space-y-6'>
-            <ProjectsCompleted
-              clientsServed={120}
-              projectsCompleted={85}
-              ongoingProjects={12}
-            />
-            <p className='text-center text-gray-700 max-w-2xl'>
-              We take pride in delivering exceptional results for our clients.
-              With a proven track record of success, we are committed to turning
-              your vision into reality.
-            </p>
-            <Link
-              href='/about'
-              className='bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors'
-            >
-              Learn More About Us
-            </Link>
-          </div>
-        </section>
+          <section className="bg-gradient-to-br from-black via-gray-900 to-black py-20 text-white">
+      <div className="container mx-auto px-6 flex flex-col items-center space-y-10 text-center">
+        <ProjectsCompleted
+          clientsServed={120}
+          projectsCompleted={85}
+          ongoingProjects={12}
+        />
+
+        <p className="text-gray-300 max-w-2xl text-lg leading-relaxed">
+          We take pride in delivering exceptional results for our clients.
+          With a proven track record of success, we are committed to turning
+          your vision into reality.
+        </p>
+
+        <Link
+          href="/about"
+          className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-full font-bold text-white transition-colors shadow-md shadow-blue-600/30"
+        >
+          Learn More About Us
+        </Link>
+      </div>
+    </section>
 
         {/* Client Reviews */}
         {/* <ClientsSection /> */}
