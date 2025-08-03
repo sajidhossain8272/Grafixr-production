@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface PortfolioItem {
@@ -26,18 +21,26 @@ interface Props {
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 function titleize(str: string) {
-  return str
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return str.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function SpinnerOverlay() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-sm">
-      <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#18181B]/90 backdrop-blur-2xl">
+      {/* Outer blurred/pulsing glow */}
+      <div className="absolute">
+        <div className="w-28 h-28 rounded-full bg-cyan-400/20 blur-2xl opacity-60 animate-pulse"></div>
+      </div>
+      {/* Modern gradient spinner ring */}
+      <div className="relative">
+        <div className="w-16 h-16 rounded-full border-4 border-t-transparent border-b-transparent border-l-cyan-400 border-r-pink-400 animate-spin bg-gradient-to-tr from-cyan-400/10 via-white/10 to-pink-400/10 shadow-xl"></div>
+        {/* Center glowing dot */}
+        <div className="absolute left-1/2 top-1/2 w-5 h-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/70 blur-md animate-pulse"></div>
+      </div>
     </div>
   );
 }
+
 
 export default function PortfolioItemClient({ id }: Props) {
   const router = useRouter();
@@ -62,19 +65,14 @@ export default function PortfolioItemClient({ id }: Props) {
       .finally(() => setLoading(false));
   }, [id]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (lightboxIndex !== null && item) {
       const next = new Image();
       const prev = new Image();
       next.src = item.files[(lightboxIndex + 1) % item.files.length];
-      prev.src =
-        item.files[
-          (lightboxIndex - 1 + item.files.length) % item.files.length
-        ];
+      prev.src = item.files[(lightboxIndex - 1 + item.files.length) % item.files.length];
       lightboxCloseRef.current?.focus();
     }
   }, [lightboxIndex, item]);
@@ -83,12 +81,8 @@ export default function PortfolioItemClient({ id }: Props) {
     (e: KeyboardEvent) => {
       if (lightboxIndex !== null && item) {
         if (e.key === "Escape") setLightboxIndex(null);
-        if (e.key === "ArrowRight")
-          setLightboxIndex((i) => (i! + 1) % item.files.length);
-        if (e.key === "ArrowLeft")
-          setLightboxIndex((i) =>
-            (i! - 1 + item.files.length) % item.files.length
-          );
+        if (e.key === "ArrowRight") setLightboxIndex((i) => (i! + 1) % item.files.length);
+        if (e.key === "ArrowLeft") setLightboxIndex((i) => (i! - 1 + item.files.length) % item.files.length);
       } else if (e.key === "Escape") {
         router.push("/portfolio");
       }
@@ -108,75 +102,65 @@ export default function PortfolioItemClient({ id }: Props) {
   if (loading) return <SpinnerOverlay />;
   if (error)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 z-50">
-        <p className="text-red-500 text-lg">{error}</p>
+      <div className="fixed inset-0 flex items-center justify-center bg-[#18181B]/90 z-50 backdrop-blur-lg">
+        <p className="text-red-400 text-lg bg-black/60 rounded-lg px-6 py-4 shadow-xl">{error}</p>
       </div>
     );
   if (!item)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 z-50">
-        <p className="text-gray-700 text-lg">Item not found.</p>
+      <div className="fixed inset-0 flex items-center justify-center bg-[#18181B]/90 z-50 backdrop-blur-lg">
+        <p className="text-white text-lg">Item not found.</p>
       </div>
     );
 
-  const { title, description, mainCategory, subCategory, files, createdAt } =
-    item;
+  const { title, description, mainCategory, subCategory, files, createdAt } = item;
 
   return (
     <>
       {/* Main Modal Overlay */}
       <div
         onClick={close}
-        className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm overflow-y-auto pt-10"
+        className="fixed inset-0 z-40 bg-[#18181B]/80 backdrop-blur-xl overflow-y-auto pt-10 flex items-center justify-center px-2"
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`relative bg-white rounded-lg shadow-xl w-full sm:w-[80vw] max-w-7xl mx-auto my-8 overflow-hidden transition-opacity duration-300 ${
+          className={`relative bg-black/80 rounded-[30px] border-2 border-white/20 shadow-2xl w-full sm:w-[80vw] max-w-5xl mx-auto my-8 overflow-hidden transition-opacity duration-300 flex flex-col ${
             mounted ? "opacity-100" : "opacity-0"
           }`}
+          style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
         >
           {/* Close Button */}
           <button
             onClick={close}
             aria-label="Close"
-            className="fixed sm:absolute top-4 right-4 p-2 rounded-full z-50 bg-white/80 hover:bg-white shadow focus:outline-none"
+            className="fixed sm:absolute top-4 right-5 p-2 rounded-full z-50 bg-white/80 hover:bg-cyan-100 shadow focus:outline-none"
           >
             <svg
-              className="w-6 h-6 text-gray-600 hover:text-gray-900"
+              className="w-7 h-7 text-gray-600 hover:text-cyan-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
           {/* Scrollable Content */}
-          <div className="p-4 sm:p-6 space-y-6 overflow-y-auto max-h-[90vh] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 bg-white/10 backdrop-blur-lg">
+          <div className="p-6 md:p-10 space-y-8 overflow-y-auto max-h-[85vh] bg-black/10 backdrop-blur-lg rounded-b-[28px] scrollbar-thin scrollbar-thumb-cyan-200/40 scrollbar-track-black/10">
             {/* Header */}
             <div className="space-y-2">
-              <h1 className="text-2xl sm:text-3xl font-bold">
-                {titleize(mainCategory)} Portfolio
-                {subCategory && (
-                  <span className="text-gray-600">
-                    : {titleize(subCategory)}
-                  </span>
-                )}
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg tracking-tight">
+                {title}
               </h1>
-              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-cyan-200 mt-1">
                 <span>
                   Created on {new Date(createdAt).toLocaleDateString()}
                 </span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                <span className="px-2 py-1 bg-cyan-800/20 text-cyan-200 rounded shadow">
                   {titleize(mainCategory)}
                 </span>
                 {subCategory && (
-                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded">
+                  <span className="px-2 py-1 bg-pink-800/20 text-pink-200 rounded shadow">
                     {titleize(subCategory)}
                   </span>
                 )}
@@ -185,31 +169,34 @@ export default function PortfolioItemClient({ id }: Props) {
 
             {/* Description */}
             {description && (
-              <p className="text-gray-700 leading-relaxed">{description}</p>
+              <p className="text-white/80 text-lg leading-relaxed font-light max-w-2xl">
+                {description}
+              </p>
             )}
 
             {/* Gallery */}
-            <div className="space-y-6">
+            <div className="flex flex-col gap-8">
               {files.map((src, idx) => (
                 <div
                   key={idx}
                   onClick={() => openLightbox(idx)}
-                  className="relative overflow-hidden lg:bg-gray-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow"
+                  className="relative overflow-hidden rounded-2xl border-2 border-cyan-200/20 bg-gradient-to-br from-black/80 to-cyan-700/10 shadow-md cursor-zoom-in group hover:shadow-cyan-400/30"
                   style={{
-                  aspectRatio:
-                    typeof window !== "undefined" && window.innerWidth < 640
-                    ? "16 / 16"
-                    : "16 / 9",
+                    aspectRatio: "16 / 9",
+                    minHeight: 170,
                   }}
                 >
                   <img
-                  src={src}
-                  alt={`${title} image ${idx + 1}`}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
+                    src={src}
+                    alt={`${title} image ${idx + 1}`}
+                    className="w-full h-full object-contain bg-black/60 group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
-                  <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                  {idx + 1}/{files.length}
+                  <div className="absolute top-2 right-2 bg-black/60 text-cyan-100 text-xs px-2 py-1 rounded-lg shadow-lg select-none">
+                    {idx + 1}/{files.length}
+                  </div>
+                  <div className="absolute bottom-2 left-2 text-white/80 text-xs bg-black/50 px-2 py-0.5 rounded-lg hidden sm:block">
+                    Click to enlarge
                   </div>
                 </div>
               ))}
@@ -219,68 +206,65 @@ export default function PortfolioItemClient({ id }: Props) {
       </div>
 
       {/* Lightbox Fullscreen Viewer */}
-   {lightboxIndex !== null && (
-  <div
-    onClick={closeLightbox}
-    className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-    role="dialog"
-    aria-modal="true"
-  >
-    {/* Close Button */}
-    <button
-      ref={lightboxCloseRef}
-      onClick={closeLightbox}
-      aria-label="Close image viewer"
-      className="fixed top-4 right-4 text-white hover:text-gray-300 text-3xl p-2 rounded-full z-50 bg-black/50 backdrop-blur"
-    >
-      ✕
-    </button>
+      {lightboxIndex !== null && (
+        <div
+          onClick={closeLightbox}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-lg flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          {/* Close Button */}
+          <button
+            ref={lightboxCloseRef}
+            onClick={closeLightbox}
+            aria-label="Close image viewer"
+            className="fixed top-7 right-8 text-white hover:text-cyan-200 text-4xl p-2 rounded-full z-50 bg-black/60 backdrop-blur-lg"
+          >
+            ✕
+          </button>
 
-    {/* Prev Button */}
-    {files.length > 1 && (
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setLightboxIndex(
-            (lightboxIndex + files.length - 1) % files.length
-          );
-        }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-black/40 text-white hover:bg-black/60 text-2xl sm:text-2xl p-3 sm:p-4 rounded-full focus:outline-none"
-        aria-label="Previous image"
-      >
-        ‹
-      </button>
-    )}
+          {/* Prev Button */}
+          {files.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((lightboxIndex + files.length - 1) % files.length);
+              }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-50 bg-black/50 text-white hover:bg-cyan-400/70 text-3xl p-4 rounded-full focus:outline-none"
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+          )}
 
-    {/* Next Button */}
-    {files.length > 1 && (
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setLightboxIndex((lightboxIndex + 1) % files.length);
-        }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-black/40 text-white hover:bg-black/60 text-2xl sm:text-2xl p-3 sm:p-4 rounded-full focus:outline-none"
-        aria-label="Next image"
-      >
-        ›
-      </button>
-    )}
+          {/* Next Button */}
+          {files.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((lightboxIndex + 1) % files.length);
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-50 bg-black/50 text-white hover:bg-cyan-400/70 text-3xl p-4 rounded-full focus:outline-none"
+              aria-label="Next image"
+            >
+              ›
+            </button>
+          )}
 
-    {/* Main Image */}
-    <div className="max-h-full max-w-full">
-      <img
-        src={files[lightboxIndex!]}
-        alt={`${title} full view ${lightboxIndex! + 1}`}
-        className="max-h-[90vh] max-w-[90vw] w-full object-contain"
-        loading="eager"
-      />
-      <div className="mt-2 text-center text-white text-sm">
-        {lightboxIndex! + 1} / {files.length} — {title}
-      </div>
-    </div>
-  </div>
-)}
-
+          {/* Main Image */}
+          <div className="max-h-full max-w-full flex flex-col items-center">
+            <img
+              src={files[lightboxIndex!]}
+              alt={`${title} full view ${lightboxIndex! + 1}`}
+              className="max-h-[85vh] max-w-[90vw] w-full object-contain rounded-lg border-2 border-cyan-200/30 shadow-2xl bg-black/80"
+              loading="eager"
+            />
+            <div className="mt-2 text-center text-cyan-100 text-base font-semibold drop-shadow">
+              {lightboxIndex! + 1} / {files.length} — {title}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
