@@ -26,13 +26,13 @@ export default function ClientReviews() {
   }, [API_URL]);
 
   return (
-    <section className="py-20 bg-black dark:bg-white transition-colors duration-500">
+    <section className="py-20 bg-black transition-colors duration-500">
       <div className="max-w-4xl mx-auto text-center mb-12 px-4">
-        <h2 className="text-5xl md:text-6xl font-extrabold mb-3 tracking-tight text-white dark:text-black"
+        <h2 className="text-5xl md:text-6xl font-extrabold mb-3 tracking-tight text-white "
           style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>
           WHAT OUR CLIENTS SAY
         </h2>
-        <p className="text-lg md:text-xl text-white/80 dark:text-black/70 font-medium">
+        <p className="text-lg md:text-xl text-white/80font-medium">
           Real feedback from those we’ve helped bring their ideas to life.
         </p>
       </div>
@@ -90,7 +90,7 @@ export default function ClientReviews() {
                 />
                 <div className="relative z-10 flex flex-col items-center justify-center w-full">
                   {/* Logo / Avatar */}
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-cyan-400 shadow-md bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-cyan-400 shadow-md bg-gray-100  flex items-center justify-center mb-4">
                     <img
                       src={r.photo}
                       alt={r.name}
@@ -99,7 +99,7 @@ export default function ClientReviews() {
                     />
                   </div>
                   {/* Name */}
-                  <h3 className="text-xl font-bold text-black dark:text-white mb-1">{r.name}</h3>
+                  <h3 className="text-xl font-bold text-black mb-1">{r.name}</h3>
                   {/* Stars */}
                   <div className="flex justify-center mb-4">
                     {[...Array(5)].map((_, i) => (
@@ -108,13 +108,13 @@ export default function ClientReviews() {
                         className={`${
                           i < r.rating
                             ? 'text-yellow-400 drop-shadow'
-                            : 'text-gray-300 dark:text-gray-500'
+                            : 'text-gray-300 '
                         } text-lg`}
                       />
                     ))}
                   </div>
                   {/* Text */}
-                  <p className="text-gray-700 dark:text-gray-100 text-md leading-relaxed max-w-[380px]">
+                  <p className="text-gray-700  text-md leading-relaxed max-w-[380px]">
                     “{r.text}”
                   </p>
                 </div>

@@ -10,7 +10,7 @@ const FontsWeWorkWith: React.FC = () => (
     <div
       className="
         relative w-full max-w-[1500px]
-        bg-white dark:bg-black
+        bg-white
         rounded-[36px] md:rounded-[60px]
         flex flex-col md:flex-row items-center justify-between
         px-3 sm:px-6 md:px-16 py-7 md:py-12
@@ -35,19 +35,19 @@ const FontsWeWorkWith: React.FC = () => (
         <h2
           className="
             text-2xl sm:text-3xl md:text-5xl
-            font-extrabold text-black dark:text-white tracking-tight mb-1
+            font-extrabold text-black  tracking-tight mb-1
           "
           style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
         >
           FONTS WE WORK WITH
         </h2>
-        <div className="text-base sm:text-lg md:text-xl text-black/90 dark:text-white/80 font-semibold mb-2 sm:mb-3">
+        <div className="text-base sm:text-lg md:text-xl text-black/90  font-semibold mb-2 sm:mb-3">
           A Curated Collection of funkey, Bold, Expressive fonts that elevate your designs.
         </div>
         <div
           className="
             text-lg sm:text-2xl md:text-4xl
-            font-light mt-2 md:mt-3 text-[#222] dark:text-gray-100
+            font-light mt-2 md:mt-3 text-[#222] 
           "
           style={{
             fontFamily: "var(--font-geist-sans), 'Montserrat', Arial, sans-serif",
@@ -59,7 +59,7 @@ const FontsWeWorkWith: React.FC = () => (
             <span key={idx}>
               {item.trim()}
               {idx !== arr.length - 1 && (
-                <span className="mx-1 sm:mx-2 text-base sm:text-2xl align-middle text-[#888] dark:text-gray-400">|</span>
+                <span className="mx-1 sm:mx-2 text-base sm:text-2xl align-middle text-[#888] ">|</span>
               )}
               {idx === arr.length - 1 && <br />}
             </span>

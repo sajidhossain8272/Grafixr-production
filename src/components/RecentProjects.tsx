@@ -30,12 +30,12 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
   loading = false,
   error = null,
 }) => (
-  <section className="py-20 bg-black dark:bg-white text-white dark:text-black transition-colors duration-500">
+  <section className="py-20 bg-black  text-white  transition-colors duration-500">
     <h2 className="text-5xl md:text-6xl font-extrabold text-center mb-2 tracking-tight"
       style={{ fontFamily: "Montserrat, Arial, sans-serif" }}>
       RECENT PROJECTS
     </h2>
-    <p className="text-center text-lg md:text-xl text-white/90 dark:text-black/70 mb-14 max-w-2xl mx-auto font-semibold">
+    <p className="text-center text-lg md:text-xl text-white/90 mb-14 max-w-2xl mx-auto font-semibold">
       These are our most recent and exciting projects. Take a look at what we’ve been working on!
     </p>
     {loading ? (
@@ -55,7 +55,7 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: idx * 0.2 }}
               viewport={{ once: true }}
-              className="rounded-[30px] border border-white/80 dark:border-black/40 bg-black dark:bg-white shadow-2xl overflow-hidden flex flex-col justify-between min-h-[480px] transition-colors duration-500"
+              className="rounded-[30px] border border-white/80  bg-black shadow-2xl overflow-hidden flex flex-col justify-between min-h-[480px] transition-colors duration-500"
               style={{
                 boxShadow: "0 8px 48px rgba(0,0,0,0.18)",
               }}
@@ -79,14 +79,14 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
               </div>
 
               {/* Content Section */}
-              <div className="flex flex-col items-center text-center px-6 pb-8 pt-6 flex-1 bg-black dark:bg-white">
+              <div className="flex flex-col items-center text-center px-6 pb-8 pt-6 flex-1 bg-black ">
                 <h3
                   className="text-3xl md:text-3xl font-semibold mb-3 tracking-wide"
                   style={{ fontFamily: "Montserrat, Arial, sans-serif", letterSpacing: "0.01em" }}
                 >
                   {item.title || "PROJECT TITLE"}
                 </h3>
-                <p className="text-base md:text-lg text-white/80 dark:text-black/80 font-light"
+                <p className="text-base md:text-lg text-white/80 font-light"
                   style={{
                     fontFamily: "var(--font-geist-sans), 'Montserrat', Arial, sans-serif",
                     letterSpacing: "0.01em",

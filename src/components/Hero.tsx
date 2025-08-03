@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { useRouter } from 'next/navigation';
 
 const Hero: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -12,6 +14,7 @@ const Hero: React.FC = () => {
   }, []);
 
   const isDark = theme === 'dark';
+  const router = useRouter();
 
   if (!mounted) {
     // Optionally render a skeleton/placeholder here
@@ -19,12 +22,12 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center bg-black dark:bg-white px-2 transition-colors duration-500">
+    <section className="w-full min-h-screen flex items-center justify-center bg-black dark:bg-black px-2 transition-colors duration-500">
       <div
         className={`
           relative w-full max-w-[1460px] 
           rounded-[26px] md:rounded-[48px] border
-          ${isDark ? 'border-white/30 bg-[#101013]' : 'border-black/20 bg-white'}
+          ${isDark ? 'border-white/30 bg-[#101013]' : 'border-white/30 bg-[#101013]'}
           px-3 sm:px-6 md:px-12 py-7 sm:py-10 md:py-14
           flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0
           transition-colors duration-500
@@ -37,7 +40,7 @@ const Hero: React.FC = () => {
             className={`
               text-[12vw] sm:text-[8vw] md:text-[110px] lg:text-[144px]
               leading-none font-extrabold tracking-tight
-              ${isDark ? 'text-white' : 'text-black'} 
+              ${isDark ? 'text-white' : 'text-white'} 
               mt-2 md:mt-0 mb-5 sm:mb-6
               whitespace-nowrap
             `}
@@ -53,17 +56,19 @@ const Hero: React.FC = () => {
             className={`
               mt-2 text-base sm:text-lg md:text-2xl max-w-xl font-light
               mb-6 sm:mb-8 md:mb-10 
-              ${isDark ? 'text-white/90' : 'text-gray-800'}
+              ${isDark ? 'text-white/90' : 'text-white/90'}
             `}
             style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
           >
             Hello! I am a professional Graphic Designer Since 2017. I Have a team to Help me. I also provide other services through my expert team members.
           </p>
-          <button className="w-[160px] sm:w-[195px] h-[44px] sm:h-[54px] flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 via-white to-pink-500 shadow-md transition hover:scale-105">
-            <span className="font-bold text-base sm:text-xl text-gray-900">
-              READ MORE
-            </span>
-          </button>
+      <button
+  className="w-[160px] sm:w-[195px] h-[44px] sm:h-[54px] flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 via-white to-pink-500 shadow-md transition hover:scale-105 font-bold text-base sm:text-xl text-gray-900"
+  onClick={() => router.push('/about')}
+>
+  READ MORE
+</button>
+
         </div>
 
         {/* RIGHT SIDE */}
@@ -117,7 +122,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           {/* THEME TOGGLE (top right, functional) */}
-          <button
+          {/* <button
             className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20"
             aria-label="Toggle Dark Mode"
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
@@ -130,7 +135,7 @@ const Hero: React.FC = () => {
                 `}
               />
             </div>
-          </button>
+          </button> */}
         </div>
 
         {/* 3D CUBE: bottom left of the image card, adapts position for mobile */}

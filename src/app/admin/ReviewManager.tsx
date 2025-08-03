@@ -70,45 +70,53 @@ export default function ReviewManager() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Manage Client Reviews</h2>
-      <ul className="space-y-4">
+      <h2 className="text-2xl font-extrabold mb-6 text-white tracking-tight">Manage Client Reviews</h2>
+      <ul className="space-y-5">
         {reviews.map((review) => (
-          <li key={review._id} className="border p-4 rounded shadow">
+          <li
+            key={review._id}
+            className="rounded-2xl bg-[#181924]/70 shadow-2xl border border-white/10 backdrop-blur-md px-6 py-5"
+          >
             {editingId === review._id && editingForm ? (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <input
-                  className="w-full border p-2"
+                  className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-2 transition"
                   value={editingForm.name}
                   onChange={(e) => handleEditChange('name', e.target.value)}
+                  placeholder="Name"
                 />
                 <input
-                  className="w-full border p-2"
+                  className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-2 transition"
                   value={editingForm.photo}
                   onChange={(e) => handleEditChange('photo', e.target.value)}
+                  placeholder="Photo URL"
                 />
                 <textarea
-                  className="w-full border p-2"
+                  className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-2 transition"
                   value={editingForm.text}
                   onChange={(e) => handleEditChange('text', e.target.value)}
+                  placeholder="Review text"
+                  rows={3}
                 />
                 <input
                   type="number"
                   min={1}
                   max={5}
-                  className="w-full border p-2"
+                  className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-2 transition"
                   value={editingForm.rating}
                   onChange={(e) => handleEditChange('rating', +e.target.value)}
+                  placeholder="Rating (1-5)"
                 />
                 <div className="flex gap-2">
                   <button
                     onClick={handleEditSave}
-                    className="bg-green-600 text-white px-4 py-1 rounded"
+                    className="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-1.5 rounded-lg font-semibold transition"
                   >
                     Save
                   </button>
                   <button
                     onClick={handleCancel}
-                    className="text-sm text-gray-600 underline"
+                    className="text-sm text-gray-400 underline px-2"
                   >
                     Cancel
                   </button>
@@ -117,20 +125,20 @@ export default function ReviewManager() {
             ) : (
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="font-bold">{review.name}</p>
-                  <p className="text-sm text-gray-700">{review.text}</p>
-                  <p className="text-yellow-500">Rating: {review.rating}/5</p>
+                  <p className="font-bold text-white">{review.name}</p>
+                  <p className="text-sm text-gray-300 mt-1 mb-2">{review.text}</p>
+                  <p className="text-yellow-500 font-semibold">Rating: {review.rating}/5</p>
                 </div>
-                <div className="space-x-2">
+                <div className="flex flex-col gap-2 min-w-[72px] items-end">
                   <button
                     onClick={() => handleEditClick(review)}
-                    className="text-blue-600 underline"
+                    className="text-cyan-400 underline font-semibold"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(review._id)}
-                    className="text-red-600 underline"
+                    className="text-red-400 underline font-semibold"
                   >
                     Delete
                   </button>

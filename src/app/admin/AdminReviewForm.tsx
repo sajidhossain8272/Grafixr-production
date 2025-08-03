@@ -48,8 +48,10 @@ export default function AdminReviewForm() {
   }
 
   return (
-    <div className="bg-white p-6 rounded shadow max-w-xl mx-auto my-8">
-      <h2 className="text-xl font-bold mb-4">Add a Client Review</h2>
+    <div className="max-w-xl mx-auto my-8 rounded-2xl bg-[#181924]/70 border border-white/10 shadow-2xl backdrop-blur-lg px-7 py-8">
+      <h2 className="text-2xl font-extrabold mb-4 text-white tracking-tight">
+        Add a Client Review
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -57,7 +59,7 @@ export default function AdminReviewForm() {
           value={form.name}
           onChange={handleChange}
           placeholder="Client name"
-          className="w-full border p-2 rounded"
+          className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-3 transition"
           required
         />
         <input
@@ -66,7 +68,7 @@ export default function AdminReviewForm() {
           value={form.photo}
           onChange={handleChange}
           placeholder="Photo URL"
-          className="w-full border p-2 rounded"
+          className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-3 transition"
           required
         />
         <textarea
@@ -74,7 +76,8 @@ export default function AdminReviewForm() {
           value={form.text}
           onChange={handleChange}
           placeholder="Feedback..."
-          className="w-full border p-2 rounded"
+          className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-3 transition"
+          rows={3}
           required
         />
         <input
@@ -84,18 +87,18 @@ export default function AdminReviewForm() {
           max={5}
           value={form.rating}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full bg-white/10 text-white border border-cyan-400/40 focus:ring-2 focus:ring-cyan-400/40 focus:border-pink-400 rounded-lg p-3 transition"
           required
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-500"
+          className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 rounded-lg font-semibold transition shadow"
           disabled={status === 'submitting'}
         >
           {status === 'submitting' ? 'Submitting...' : 'Add Review'}
         </button>
-        {status === 'success' && <p className="text-green-600">Review added!</p>}
-        {status === 'error' && <p className="text-red-600">{error}</p>}
+        {status === 'success' && <p className="text-green-400 font-semibold">Review added!</p>}
+        {status === 'error' && <p className="text-red-400 font-semibold">{error}</p>}
       </form>
     </div>
   )

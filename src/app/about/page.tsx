@@ -1,11 +1,88 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowRight, FaPhoneAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export default function AboutPage() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState(""); // "", "success", "error"
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const handleSubscribe = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setStatus("");
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_URL}/newsletter/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("success");
+        setMessage("Subscribed successfully! 🎉");
+        setEmail("");
+        setShowModal(true);
+      } else {
+        setStatus("error");
+        setMessage(data?.error || "Subscription failed. Try again.");
+        setShowModal(true);
+      }
+    } catch (err) {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
+      setShowModal(true);
+    }
+    setLoading(false);
+  };
+
+  // Hide modal after 3 seconds
+  useEffect(() => {
+    if (showModal) {
+      const timer = setTimeout(() => {
+        setShowModal(false);
+        setStatus("");
+        setMessage("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showModal]);
+
   return (
     <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] px-1 sm:px-2 relative overflow-hidden">
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40">
+          <div
+            className={`px-7 py-6 rounded-xl shadow-lg backdrop-blur-md bg-white/90 text-center max-w-xs w-full border-2 ${
+              status === "success"
+                ? "border-green-400"
+                : "border-red-400"
+            }`}
+          >
+            <span
+              className={`block font-semibold text-lg mb-1 ${
+                status === "success"
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {status === "success" ? "Success" : "Error"}
+            </span>
+            <span className="block text-base text-gray-900">{message}</span>
+          </div>
+        </div>
+      )}
+
       {/* Soft BG Gradient */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute -top-32 -left-24 w-2/3 h-2/3 rounded-full bg-gradient-to-br from-[#31ffe633] via-[#fd43ad18] to-transparent blur-3xl opacity-60" />
@@ -138,18 +215,25 @@ export default function AboutPage() {
               <FaPhoneAlt className="mr-1" /> +88 01628083370
             </span>
           </div>
-          <form className="flex items-center w-full sm:w-auto max-w-md mx-auto gap-2">
+          <form
+            className="flex items-center w-full sm:w-auto max-w-md mx-auto gap-2"
+            onSubmit={handleSubscribe}
+          >
             <input
               className="flex-1 px-4 sm:px-5 py-2 rounded-full border-2 border-white/30 bg-black/20 text-white placeholder:text-white/70 outline-none backdrop-blur-md text-sm sm:text-base min-w-0"
               placeholder="Write your e-mail here ..."
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
             <button
               type="submit"
               className="ml-2 px-4 sm:px-6 py-2 rounded-full border-2 border-white/40 bg-black/70 text-white font-bold transition hover:scale-105 shadow text-sm sm:text-base"
+              disabled={loading || !email}
             >
-              Subscribe
+              {loading ? "Subscribing..." : "Subscribe"}
             </button>
           </form>
         </motion.div>
