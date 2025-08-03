@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function PortfolioPage() {
   return (
-    <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] px-1 py-0 sm:px-2 relative overflow-hidden">
+    <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] px-1 py-20 sm:px-2 relative overflow-hidden">
       {/* Large outer border with cube and cone SVG */}
       <div className="w-full max-w-[1420px] min-h-[94vh] bg-black rounded-[32px] border-2 border-white/50 px-1 sm:px-6 py-4 sm:py-10 mx-auto relative shadow-[0_0_60px_5px_rgba(255,255,255,0.08)] flex flex-col items-center overflow-visible">
         {/* Top right 3D Cube */}

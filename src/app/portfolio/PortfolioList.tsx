@@ -199,67 +199,74 @@ export default function PortfolioList() {
         </p>
       ) : (
         <>
-          <div className="grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {paginated.map((item, idx) => (
-              <motion.div
-                key={item._id}
-                initial={{ opacity: 0, y: 40, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.13, duration: 0.7 }}
-              >
-                <Link
-                  href={`/portfolio/${item._id}`}
-                  className="
-                    group block
-                    rounded-[22px]
-                    border-2 border-white/30
-                    bg-black/80
-                    overflow-hidden
-                    shadow-xl
-                    hover:shadow-cyan-400/40 hover:scale-[1.025] transition-all duration-200
-                    relative
-                  "
-                  style={{
-                    minHeight: 370,
-                    fontFamily: 'Montserrat, Arial, sans-serif'
-                  }}
-                >
-                  {/* Image */}
-                  <div
-                    className="w-full bg-gradient-to-tr from-[#fd43ad10] to-[#31ffe625] overflow-hidden"
-                    style={{
-                      aspectRatio: '1.38/1',
-                    }}
-                  >
-                    <img
-                      src={item.files[0]}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      style={{
-                        borderTopLeftRadius: 18,
-                        borderTopRightRadius: 18,
-                        borderBottomLeftRadius: 0,
-                        borderBottomRightRadius: 0,
-                      }}
-                    />
-                  </div>
-                  {/* Content */}
-                  <div className="px-6 py-5 text-white bg-black/85 rounded-b-[22px] border-t border-white/10 flex flex-col items-center min-h-[150px]">
-                    <h2 className="text-2xl font-extrabold mb-1 text-center tracking-tight">
-                      {item.title}
-                    </h2>
-                    <p className="text-white/80 mt-1 text-center text-base font-normal leading-tight min-h-[44px]">
-                      {item.description || 'No description'}
-                    </p>
-                    <p className="text-xs text-white/40 mt-3 text-center">
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+        <div className="grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+  {paginated.map((item, idx) => (
+    <motion.div
+      key={item._id}
+      initial={{ opacity: 0, y: 40, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.13, duration: 0.7 }}
+    >
+      <Link
+        href={`/portfolio/${item._id}`}
+        className="
+          group block
+          rounded-[22px]
+          border-2 border-white/30
+          bg-black/80
+          overflow-hidden
+          shadow-xl
+          hover:shadow-cyan-400/40 hover:scale-[1.025] transition-all duration-200
+          relative
+          h-[410px]  // 👈 Fixed height for the whole card
+          flex flex-col
+        "
+        style={{
+          fontFamily: 'Montserrat, Arial, sans-serif'
+        }}
+      >
+        {/* Image */}
+        <div
+          className="w-full bg-gradient-to-tr from-[#fd43ad10] to-[#31ffe625] overflow-hidden"
+          style={{
+            aspectRatio: '1.38/1',
+            minHeight: 180,
+            maxHeight: 180,
+          }}
+        >
+          <img
+            src={item.files[0]}
+            alt={item.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            style={{
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+            }}
+          />
+        </div>
+        {/* Content */}
+        <div className="flex-1 flex flex-col items-center justify-between px-6 py-5 text-white bg-black/85 rounded-b-[22px] border-t border-white/10 min-h-[230px] max-h-[230px]">
+          {/* Title with fixed lines */}
+          <h2 className="text-2xl font-extrabold text-center tracking-tight mb-2 w-full line-clamp-2 min-h-[2.9em]">
+            {item.title}
+          </h2>
+          {/* Description with fixed lines */}
+          <p className="text-white/80 text-center text-base font-normal leading-tight w-full mt-0 line-clamp-3 min-h-[4.2em]">
+            {item.description || 'No description'}
+          </p>
+          {/* Footer - Date */}
+          <p className="text-xs text-white/40 mt-3 text-center">
+            {new Date(item.createdAt).toLocaleDateString()}
+          </p>
+        </div>
+      </Link>
+    </motion.div>
+  ))}
+</div>
+
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-12 select-none">
