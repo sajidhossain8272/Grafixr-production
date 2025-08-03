@@ -5,161 +5,154 @@ import { motion } from "framer-motion";
 
 export default function AboutPage() {
   return (
-    <section className='min-h-screen w-full flex items-center justify-center bg-[#18181B] px-2 relative'>
-      {/* Main Glassmorphism Card */}
-      <div className='w-full max-w-6xl bg-black rounded-[32px] border-2 border-white/50 p-4 sm:p-8 mx-auto relative shadow-[0_0_60px_5px_rgba(255,255,255,0.08)] overflow-hidden'>
-        {/* 3D Pill Shape */}
-        <motion.div
-          initial={{ opacity: 0, x: -40, rotate: 20 }}
-          animate={{ opacity: 1, x: 0, rotate: 0 }}
-          transition={{ duration: 1, delay: 0.1 }}
-          className='absolute left-[-60px] top-[-40px] z-0 hidden md:block'
-        >
-          <svg width='140' height='70' viewBox='0 0 140 70'>
-            <ellipse
-              cx='70'
-              cy='35'
-              rx='60'
-              ry='26'
-              fill='url(#paint0_linear_ellipse)'
-            />
-            <defs>
-              <linearGradient
-                id='paint0_linear_ellipse'
-                x1='0'
-                y1='0'
-                x2='140'
-                y2='70'
-                gradientUnits='userSpaceOnUse'
-              >
-                <stop stopColor='#C7FFFC' />
-                <stop offset='0.7' stopColor='#81D9F7' />
-                <stop offset='1' stopColor='#FF54C1' />
-              </linearGradient>
-            </defs>
-          </svg>
-        </motion.div>
+    <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] px-1 sm:px-2 relative overflow-hidden">
+      {/* Soft BG Gradient */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute -top-32 -left-24 w-2/3 h-2/3 rounded-full bg-gradient-to-br from-[#31ffe633] via-[#fd43ad18] to-transparent blur-3xl opacity-60" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 rounded-full bg-gradient-to-tr from-[#fd43ad33] to-transparent blur-2xl opacity-50" />
+      </div>
 
-        {/* 3D Cube Shape */}
+      {/* Main Card */}
+      <div className="w-full max-w-6xl bg-black/90 rounded-[22px] sm:rounded-[32px] border-2 border-white/60 px-2 sm:px-6 md:px-10 py-5 sm:py-10 md:py-14 mx-auto relative shadow-[0_0_80px_10px_rgba(56,246,255,0.09)] overflow-visible backdrop-blur-xl">
+        {/* 3D Pill Shape */}
+        <motion.img
+          src="/Arrow-left.png"
+          alt="3D Pill"
+          className="absolute left-[-34px] top-[-24px] w-[70px] md:w-[110px] lg:w-[150px] z-0 hidden md:block"
+          initial={{ opacity: 0, x: -50, rotate: 30 }}
+          animate={{ opacity: 1, x: 0, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.18 }}
+          draggable={false}
+          style={{ pointerEvents: "none" }}
+        />
+
+        {/* 3D Cube (SVG) */}
         <motion.div
           initial={{ opacity: 0, y: -30, rotate: 20 }}
           animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={{ duration: 1, delay: 0.25 }}
-          className='absolute right-[-60px] top-[60px] z-0 hidden md:block'
+          transition={{ duration: 1, delay: 0.32 }}
+          className="absolute right-[-28px] top-[32px] w-[58px] md:w-[90px] lg:w-[120px] z-0 hidden sm:block"
         >
-          <svg width='120' height='120' viewBox='0 0 120 120'>
+          <svg width="100%" height="100%" viewBox="0 0 120 120">
             <g>
-              <polygon points='30,100 100,100 70,60 0,60' fill='#fd43ad' />
-              <polygon points='0,0 70,0 100,40 30,40' fill='#C7FFFC' />
-              <polygon points='0,0 0,60 30,100 30,40' fill='#81D9F7' />
+              <polygon points="30,100 100,100 70,60 0,60" fill="#fd43ad" />
+              <polygon points="0,0 70,0 100,40 30,40" fill="#C7FFFC" />
+              <polygon points="0,0 0,60 30,100 30,40" fill="#81D9F7" />
             </g>
           </svg>
         </motion.div>
 
-        {/* Centered Content */}
-        <div className='flex flex-col md:flex-row items-center gap-4 md:gap-0 justify-between relative z-10'>
-          {/* Left: Headline & Button */}
-          <div className='flex-1 flex flex-col gap-7 items-start justify-center pt-6 md:pt-0'>
-            <div className='relative w-full flex flex-col items-start'>
-              <div className='relative z-10 p-7 border-2 border-white/50 rounded-2xl bg-black/40'>
+        {/* Upper Right Arrow */}
+        <motion.img
+          src="/Arrow-upper-right.png"
+          alt="Upper right arrow"
+          className="absolute right-3 top-4 w-[26px] sm:w-[32px] md:w-[32px] z-10"
+          initial={{ opacity: 0, y: -25, scale: 0.9, rotate: 25 }}
+          animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+          transition={{ duration: 1.1, delay: 0.45 }}
+          draggable={false}
+          style={{ pointerEvents: "none" }}
+        />
+
+        {/* Main Content */}
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-0 justify-between relative z-10 min-h-[360px] sm:min-h-[400px]">
+          {/* Left: Headline & CTA */}
+          <div className="flex-1 flex flex-col gap-7 sm:gap-8 items-start justify-center pt-3 md:pt-0 w-full min-w-0">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, delay: 0.25 }}
+              className="relative w-full flex flex-col items-start"
+            >
+              <div className="relative z-10 px-4 sm:px-7 py-6 sm:py-8 border-2 border-white/40 rounded-xl sm:rounded-2xl bg-black/40 shadow-lg backdrop-blur-md w-full">
                 <span
-                  className='text-white font-extrabold text-3xl md:text-5xl leading-tight font-[Montserrat,sans-serif]'
+                  className="text-white font-extrabold text-2xl sm:text-3xl md:text-5xl leading-tight font-[Montserrat,sans-serif] drop-shadow-lg"
                   style={{
-                    letterSpacing: "-1.5px",
+                    letterSpacing: "-1.2px",
                   }}
                 >
-                  Interested in
-                  <br />
-                  working
-                  <br />
+                  Interested in<br />
+                  working<br />
                   together?
                 </span>
               </div>
-            </div>
-            {/* Gradient Arrow Button */}
+            </motion.div>
+            {/* Animated Gradient Arrow Button */}
             <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className='mt-8 flex items-center gap-3 px-6 py-2 rounded-full border-2 border-white/40 bg-black/60 transition shadow-[0_0_16px_2px_rgba(56,246,255,0.1)] hover:shadow-lg focus:outline-none'
+              transition={{ duration: 1, delay: 0.7 }}
+              className="mt-5 sm:mt-7 flex items-center gap-3 px-6 sm:px-8 py-2 rounded-full border-2 border-white/40 bg-black/70 transition shadow-[0_0_18px_2px_rgba(56,246,255,0.13)] hover:shadow-xl focus:outline-none active:scale-98"
               style={{
                 background:
-                  "linear-gradient(92deg,rgba(56,246,255,0.10) 0%,rgba(253,67,173,0.15) 100%)",
+                  "linear-gradient(92deg,rgba(56,246,255,0.10) 0%,rgba(253,67,173,0.18) 100%)",
                 color: "#fff",
                 fontWeight: 600,
                 fontFamily: "Montserrat,sans-serif",
-                fontSize: "1.15rem",
+                fontSize: "1rem",
               }}
             >
-              <span className='pr-2'>
-                <svg width='60' height='32'>
-                  <rect
-                    x='2'
-                    y='2'
-                    rx='16'
-                    width='56'
-                    height='28'
-                    fill='none'
-                    stroke='url(#arrow_gradient)'
-                    strokeWidth='3'
-                  />
-                  <defs>
-                    <linearGradient
-                      id='arrow_gradient'
-                      x1='0'
-                      y1='0'
-                      x2='60'
-                      y2='32'
-                      gradientUnits='userSpaceOnUse'
-                    >
-                      <stop stopColor='#31ffe6' />
-                      <stop offset='1' stopColor='#fd43ad' />
-                    </linearGradient>
-                  </defs>
-                </svg>
+              <img
+                src="/Arrow-upper-right.png"
+                alt="Gradient Arrow"
+                className="w-7 h-7 sm:w-10 sm:h-10 mr-1"
+                draggable={false}
+                style={{ filter: "drop-shadow(0 2px 10px #31ffe655)" }}
+              />
+              <span className="hidden sm:inline">Let’s Connect</span>
+              <span className="inline sm:hidden">
+                <FaArrowRight className="text-lg" />
               </span>
-              <FaArrowRight className='ml-[-45px] text-2xl text-gradient-to-r from-[#31ffe6] to-[#fd43ad]' />
             </motion.button>
           </div>
           {/* Right: Description */}
-          <div className='flex-1 flex flex-col items-end justify-center pr-3 pt-10 md:pt-0'>
-            <div className='text-white/90 text-[0.98rem] max-w-md leading-relaxed'>
-              We believe every brand has a story worth telling—and our passion
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.55 }}
+            className="flex-1 flex flex-col items-end justify-center pr-1 sm:pr-3 pt-6 md:pt-0 w-full min-w-0"
+          >
+            <div className="text-white/90 text-base sm:text-[1.08rem] max-w-[92vw] sm:max-w-md leading-relaxed font-medium drop-shadow-md">
+              We believe every brand has a story worth telling — and our passion
               is bringing those stories to life through design. What began as a
-              solo journey has grown into a creative team dedicated to
-              delivering bold visuals and real results for clients worldwide. If
-              you’re ready to turn your ideas into an unforgettable visual
-              experience, let’s connect and create something exceptional
-              together.
+              solo journey has grown into a creative team dedicated to delivering
+              bold visuals and real results for clients worldwide. If you’re ready
+              to turn your ideas into an unforgettable visual experience, let’s
+              connect and create something exceptional together.
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Contact Bar */}
-        <div className='w-full border border-white/40 rounded-full flex flex-col md:flex-row items-center justify-between gap-4 mt-16 px-4 py-4 bg-black/30 relative z-20'>
-          <div className='flex items-center gap-4 w-full md:w-auto justify-center'>
-            <span className='font-semibold text-white/90 text-base'>
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="w-full border border-white/30 rounded-full flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 sm:mt-14 px-3 sm:px-4 py-3 sm:py-4 bg-black/40 shadow-lg relative z-20 backdrop-blur-lg"
+        >
+          <div className="flex items-center gap-4 w-full sm:w-auto justify-center">
+            <span className="font-semibold text-white/90 text-sm sm:text-base">
               Contact Us:
             </span>
-            <span className='flex items-center gap-2 px-4 py-2 rounded-lg border border-white/30 bg-black/50 text-white/80 text-lg font-mono'>
-              <FaPhoneAlt className='mr-1' /> +88 01628083370
+            <span className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg border border-white/20 bg-black/50 text-white/80 text-base sm:text-lg font-mono">
+              <FaPhoneAlt className="mr-1" /> +88 01628083370
             </span>
           </div>
-          <form className='flex items-center w-full md:w-auto max-w-md mx-auto gap-2'>
+          <form className="flex items-center w-full sm:w-auto max-w-md mx-auto gap-2">
             <input
-              className='flex-1 px-5 py-2 rounded-full border-2 border-white/40 bg-black/20 text-white placeholder:text-white/70 outline-none'
-              placeholder='Write your e-mail here ...'
-              type='email'
+              className="flex-1 px-4 sm:px-5 py-2 rounded-full border-2 border-white/30 bg-black/20 text-white placeholder:text-white/70 outline-none backdrop-blur-md text-sm sm:text-base min-w-0"
+              placeholder="Write your e-mail here ..."
+              type="email"
               required
             />
             <button
-              type='submit'
-              className='ml-2 px-6 py-2 rounded-full border-2 border-white/50 bg-black/60 text-white font-bold transition hover:scale-105'
+              type="submit"
+              className="ml-2 px-4 sm:px-6 py-2 rounded-full border-2 border-white/40 bg-black/70 text-white font-bold transition hover:scale-105 shadow text-sm sm:text-base"
             >
               Subscribe
             </button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
