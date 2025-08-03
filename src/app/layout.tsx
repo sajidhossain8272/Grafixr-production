@@ -5,8 +5,7 @@ import Providers from "./providers";
 import Navigation from "@/components/Navigation";
 import Footer from "./Footer";
 import WhatsApp from "@/components/WhatsApp";
-
-// Google Fonts in _document.tsx or custom font loader, not in TSX file (move <link> tag out)
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +36,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-500`}
       >
         <Providers>
-          <Navigation />
+          <Suspense fallback={null}>
+            <Navigation />
+          </Suspense>
           {children}
           <WhatsApp />
           <Footer />
