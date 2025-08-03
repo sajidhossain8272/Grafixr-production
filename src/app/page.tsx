@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='min-h-screen bg-black text-white dark:bg-white dark:text-gray-900 transition-colors duration-500'>
+      <div className='min-h-screen bg-black text-white transition-colors duration-500'>
         <ToastContainer position='top-right' autoClose={3000} hideProgressBar />
 
         {/* Hero */}
