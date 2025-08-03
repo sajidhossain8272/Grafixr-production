@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { NeonSpinner } from "./NeonSpinner";
 
 interface Project {
   _id: string;
@@ -38,8 +39,9 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
     <p className="text-center text-lg md:text-xl text-white/90 mb-14 max-w-2xl mx-auto font-semibold">
       These are our most recent and exciting projects. Take a look at what we’ve been working on!
     </p>
+    
     {loading ? (
-      <div className="flex justify-center items-center min-h-[180px]">Loading...</div>
+  <NeonSpinner />
     ) : error ? (
       <p className="text-center text-red-500">{error}</p>
     ) : (
