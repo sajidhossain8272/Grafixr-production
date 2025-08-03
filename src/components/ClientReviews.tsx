@@ -36,7 +36,6 @@ export default function ClientReviews() {
           Real feedback from those we’ve helped bring their ideas to life.
         </p>
       </div>
-
       <div className="max-w-7xl mx-auto px-4">
         <Swiper
           modules={[Autoplay, Pagination]}
@@ -62,11 +61,11 @@ export default function ClientReviews() {
                   relative
                   rounded-2xl 
                   shadow-xl 
-                  flex flex-col items-center text-center px-8 py-8 min-h-[260px] h-full
+                  flex flex-col items-center justify-center text-center px-8 py-10 min-h-[320px] h-full
                   transition-all duration-500
                   hover:scale-[1.025] hover:shadow-2xl
                   before:absolute before:inset-0 before:rounded-2xl before:z-0
-                "
+                  "
                 style={{
                   fontFamily: "var(--font-geist-sans), Montserrat, Arial, sans-serif",
                   background: "linear-gradient(120deg, #ffffff 65%, #f0f4ff 100%)",
@@ -78,7 +77,7 @@ export default function ClientReviews() {
                   zIndex: 1,
                 }}
               >
-                {/* Gradient Glow Border (with before pseudo for glowing border) */}
+                {/* Gradient Glow Border */}
                 <div
                   className="absolute inset-0 pointer-events-none z-[2] rounded-2xl"
                   style={{
@@ -89,33 +88,33 @@ export default function ClientReviews() {
                   }}
                   aria-hidden="true"
                 />
-                <div className="relative z-10">
-                  <div className="flex items-center mb-5">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-cyan-400 shadow-md mr-4 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                      <img
-                        src={r.photo}
-                        alt={r.name}
-                        className="w-full h-full object-cover"
-                        draggable={false}
-                      />
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <h3 className="text-lg font-bold text-black dark:text-white">{r.name}</h3>
-                      <div className="flex mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <FaStar
-                            key={i}
-                            className={`${
-                              i < r.rating
-                                ? 'text-yellow-400 drop-shadow'
-                                : 'text-gray-300 dark:text-gray-500'
-                            } text-base`}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                <div className="relative z-10 flex flex-col items-center justify-center w-full">
+                  {/* Logo / Avatar */}
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-cyan-400 shadow-md bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <img
+                      src={r.photo}
+                      alt={r.name}
+                      className="w-full h-full object-cover"
+                      draggable={false}
+                    />
                   </div>
-                  <p className="text-gray-700 dark:text-gray-100 text-md leading-relaxed mb-2">
+                  {/* Name */}
+                  <h3 className="text-xl font-bold text-black dark:text-white mb-1">{r.name}</h3>
+                  {/* Stars */}
+                  <div className="flex justify-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <FaStar
+                        key={i}
+                        className={`${
+                          i < r.rating
+                            ? 'text-yellow-400 drop-shadow'
+                            : 'text-gray-300 dark:text-gray-500'
+                        } text-lg`}
+                      />
+                    ))}
+                  </div>
+                  {/* Text */}
+                  <p className="text-gray-700 dark:text-gray-100 text-md leading-relaxed max-w-[380px]">
                     “{r.text}”
                   </p>
                 </div>
