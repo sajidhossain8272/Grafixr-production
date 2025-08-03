@@ -208,7 +208,7 @@ export default function AdminPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 mx-auto max-w-7xl">
+    <div className="min-h-screen bg-gray-100 p-6 mx-auto max-w-7xl pt-20">
       <AdminNavigation
         activeTab={activeTab}
         onTabChange={setActiveTab}

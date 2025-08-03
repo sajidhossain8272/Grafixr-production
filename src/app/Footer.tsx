@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
 import {
   FaFacebookF,
   FaYoutube,
@@ -13,105 +12,67 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-t from-gray-900 to-black text-gray-200">
-      <div className="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Brand */}
-        <div>
-          <Link
-            href="/"
-            className="text-3xl font-bold text-white hover:text-gray-300 transition-colors"
-          >
-            Grafixr
-          </Link>
-          <p className="mt-2 text-sm text-gray-400">
-            We create stunning designs that elevate your brand.
-          </p>
+    <footer className="relative w-full min-h-[380px] bg-black dark:bg-black flex flex-col items-center pt-24 pb-8 transition-colors duration-500">
+      {/* Card with top curve */}
+      <div className="
+        relative z-10 w-full max-w-3xl mx-auto
+        bg-[#282828] dark:bg-[#222] rounded-t-[160px] rounded-b-[28px]
+        px-6 md:px-10 py-14 flex flex-col items-center shadow-xl 
+      ">
+        {/* Brand logo and name */}
+        <div className="flex flex-col items-center justify-center mb-4">
+          <span className="flex items-center gap-2">
+            <img src="/Logo.png" alt="Logo" className="w-16 h-16 mr-2 select-none pointer-events-none" draggable={false} />
+            <span className="text-4xl md:text-5xl font-extrabold text-white font-[Montserrat] tracking-tight">
+              graf
+              <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent ml-0.5">xr</span>
+            </span>
+          </span>
         </div>
 
-        {/* Contact Info */}
-        <div className="text-sm space-y-2">
-          <p>
-            <span className="font-medium text-white">Address:</span>{" "}
-            Kawla, Dhaka, Bangladesh
-          </p>
-          <p>
-            <span className="font-medium text-white">Email:</span>{" "}
-            <a
-              href="mailto:grafixr07@gmail.com"
-              className="hover:underline text-blue-400"
-            >
-              grafixr07@gmail.com
-            </a>
-          </p>
-          <p>
-            <span className="font-medium text-white">Phone:</span>{" "}
-            <a
-              href="tel:+8801329530468"
-              className="hover:underline text-blue-400"
-            >
-              +8801329530468
-            </a>
-          </p>
+        {/* Contact */}
+        <div className="flex flex-col items-center text-white text-xl md:text-2xl font-light mb-3">
+          <span>Email : <a href="mailto:grafixr07@gmail.com" className="underline hover:text-cyan-300">grafixr07@gmail.com</a></span>
+          <span>Phone : <a href="tel:+8801628083370" className="underline hover:text-cyan-300">+8801628083370</a></span>
         </div>
 
-        {/* Navigation Links */}
-        <div className="flex flex-col items-start md:items-end space-y-2 text-sm">
-          <Link href="/about" className="hover:text-blue-400 transition">
-            About Us
-          </Link>
-          <Link href="/portfolio" className="hover:text-blue-400 transition">
-            Portfolio
-          </Link>
-          <Link href="/contact" className="hover:text-blue-400 transition">
-            Contact
-          </Link>
-        </div>
-      </div>
-
-      <div className="border-t border-white/10 mt-8">
-        <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-xs text-gray-400">
-            &copy; {currentYear} Grafixr. All rights reserved.
-          </p>
-          <div className="flex space-x-4 mt-4 md:mt-0 text-lg">
-            <a
-              href="https://facebook.com/designerrony1"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-500 transition-transform transform hover:scale-110"
-            >
+        {/* Navigation and Socials */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-between mt-6 gap-5 md:gap-0">
+          {/* Links */}
+          <nav className="flex flex-col md:flex-row gap-3 md:gap-8 items-center">
+            <Link href="/about" className="text-white/80 hover:text-cyan-300 font-semibold text-lg transition">About Us</Link>
+            <Link href="/portfolio" className="text-white/80 hover:text-cyan-300 font-semibold text-lg transition">Portfolio</Link>
+            <Link href="/contact" className="text-white/80 hover:text-cyan-300 font-semibold text-lg transition">Contact</Link>
+          </nav>
+          {/* Social icons */}
+          <div className="flex flex-row gap-6 items-center mt-5 md:mt-0">
+            <a href="https://facebook.com/designerrony1" target="_blank" rel="noopener noreferrer"
+              className="hover:text-blue-500 text-white text-2xl transition-transform transform hover:scale-125"
+              aria-label="Facebook">
               <FaFacebookF />
             </a>
-            <a
-              href="https://youtube.com/@GrafiXr07/featured"
-              aria-label="YouTube"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-500 transition-transform transform hover:scale-110"
-            >
+            <a href="https://youtube.com/@GrafiXr07/featured" target="_blank" rel="noopener noreferrer"
+              className="hover:text-red-500 text-white text-2xl transition-transform transform hover:scale-125"
+              aria-label="YouTube">
               <FaYoutube />
             </a>
-            <a
-              href="https://instagram.com/grafixr07"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-pink-500 transition-transform transform hover:scale-110"
-            >
+            <a href="https://instagram.com/grafixr07" target="_blank" rel="noopener noreferrer"
+              className="hover:text-pink-500 text-white text-2xl transition-transform transform hover:scale-125"
+              aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a
-              href="https://www.linkedin.com/in/your-linkedin-handle"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-300 transition-transform transform hover:scale-110"
-            >
+            <a href="https://www.linkedin.com/in/your-linkedin-handle" target="_blank" rel="noopener noreferrer"
+              className="hover:text-blue-400 text-white text-2xl transition-transform transform hover:scale-125"
+              aria-label="LinkedIn">
               <FaLinkedinIn />
             </a>
           </div>
         </div>
+      </div>
+
+      {/* copyright */}
+      <div className="w-full max-w-3xl mx-auto flex justify-center items-center pt-10 text-center">
+        <p className="text-gray-400 text-sm font-light">&copy; {currentYear} Grafixr. All rights reserved.</p>
       </div>
     </footer>
   );

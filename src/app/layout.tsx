@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Providers from "./providers"; // <-- your new client component
+import Providers from "./providers";
 import Navigation from "@/components/Navigation";
 import Footer from "./Footer";
 import WhatsApp from "@/components/WhatsApp";
 
-<link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Comic+Neue&family=Pacifico&family=Bangers&family=Fredericka+the+Great&family=Rubik+Doodle+Shadow&family=Indie+Flower&family=Permanent+Marker&display=swap" rel="stylesheet" />
-
+// Google Fonts in _document.tsx or custom font loader, not in TSX file (move <link> tag out)
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,17 +31,13 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-500`}
       >
-        {/* Wrap everything in our client-based ThemeProvider */}
         <Providers>
-
-          <Navigation  />
+          <Navigation />
           {children}
-          {/* WhatsApp Icon - Bottom Right */}
-        <WhatsApp />
+          <WhatsApp />
           <Footer />
-
         </Providers>
       </body>
     </html>
