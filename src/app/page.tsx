@@ -1,4 +1,4 @@
-// app/page.tsx (Next.js App Router, SEO-optimized)
+"use client"
 
 import { useEffect, useState } from "react";
 import ClientReviews from "@/components/ClientReviews";
