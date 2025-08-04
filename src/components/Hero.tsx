@@ -78,7 +78,7 @@ const Hero: React.FC = () => {
         </div>
 
       {/* RIGHT SIDE */}
-<div className="relative flex justify-center items-center w-[300px] sm:w-[360px] md:w-[420px] h-[260px] sm:h-[320px] md:h-[360px] z-20">
+<div className="relative flex justify-center items-center w-[300px] sm:w-[360px] md:w-[420px] h-[260px] sm:h-[320px] md:h-[360px] z-10">
   {/* OUTER WHITE BORDER */}
   <div
     className="absolute inset-0 z-0"
@@ -145,7 +145,7 @@ const Hero: React.FC = () => {
     w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 object-contain
     z-[11]
     -translate-x-1/2 md:translate-x-0
-    animate-float
+    animate-float 
   `}
   draggable={false}
 />
