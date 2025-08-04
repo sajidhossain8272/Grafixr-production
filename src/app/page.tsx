@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import { useEffect, useState } from "react";
 import ClientReviews from "@/components/ClientReviews";
 import CTASection from "@/components/CTASection";
@@ -23,41 +22,7 @@ interface PortfolioItem {
 }
 
 // SEO metadata export for Next.js App Router
-export const metadata = {
-  title: "GrafiXr – Modern Design Agency | Recent Projects & Reviews",
-  description:
-    "Discover GrafiXr's portfolio, recent projects, glowing client reviews, and the premium fonts we work with. Experience your brand’s next visual breakthrough with us.",
-  keywords:
-    "GrafiXr, design agency, modern portfolio, creative reviews, branding, web design, client testimonials, premium fonts",
-  openGraph: {
-    title: "GrafiXr – Modern Design Agency | Recent Projects & Reviews",
-    description:
-      "Explore recent projects, read client reviews, and see the fonts GrafiXr works with. Elevate your brand with world-class design.",
-    url: "https://grafixr.com/",
-    siteName: "GrafiXr",
-    images: [
-      {
-        url: "https://grafixr.com/og-image.png", // Replace with your OG image URL
-        width: 1200,
-        height: 630,
-        alt: "GrafiXr portfolio, projects, and client reviews",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GrafiXr – Modern Design Agency",
-    description:
-      "Explore recent work, client reviews, and creative excellence from GrafiXr.",
-    images: ["https://grafixr.com/og-image.png"], // Replace with your OG image URL
-    site: "@grafixr", // Your Twitter handle
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -130,7 +95,6 @@ export default function Home() {
 
           <section aria-label="Call to Action">
             <CTASection />
-            
           </section>
         </main>
       </div>
