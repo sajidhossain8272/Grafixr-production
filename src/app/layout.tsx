@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 // FULL SEO & SOCIAL METADATA – Place at the very top, only once
 export const metadata: Metadata = {
   title: "GrafiXr – Modern Design Agency | Recent Projects & Reviews",
