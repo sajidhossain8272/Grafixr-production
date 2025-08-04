@@ -2,24 +2,29 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CTASection: React.FC = () => {
   return (
     <section className="flex justify-center items-center py-14 px-2 bg-black transition-colors duration-500">
       <div className="relative w-full max-w-[1500px] rounded-[48px] border border-white/70  px-6 md:px-0 py-12 md:py-20 bg-black  flex flex-col items-center text-center overflow-hidden">
         {/* Left Cube */}
-        <img
+        <Image
           src="/Cube.png"
+          width={180}
+          height={180}
           alt="Cube"
-          className="absolute left-0 md:left-12 top-1/2 -translate-y-1/2 w-[180px] md:w-[230px] object-contain z-10"
+          className="absolute left-0 md:left-12 top-1/2 -translate-y-1/2 w-[180px] md:w-[230px] object-contain z-10 hidden md:block"
           style={{}}
           draggable={false}
         />
         {/* Right Cube */}
-        <img
+        <Image
           src="/Cube.png"
+          width={180}
+          height={180}
           alt="Cube"
-          className="absolute right-0 md:right-12 top-1/2 -translate-y-1/2 w-[180px] md:w-[230px] object-contain z-10"
+          className="absolute right-0 md:right-12 top-1/2 -translate-y-1/2 w-[180px] md:w-[230px] object-contain z-10 opacity-20 md:opacity-100"
           style={{}}
           draggable={false}
         />

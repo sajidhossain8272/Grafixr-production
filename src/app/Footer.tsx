@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   FaFacebookF,
   FaYoutube,
   FaInstagram,
-  FaLinkedinIn,
 } from "react-icons/fa";
 
 export default function Footer() {
@@ -22,11 +22,7 @@ export default function Footer() {
         {/* Brand logo and name */}
         <div className="flex flex-col items-center justify-center mb-4">
           <span className="flex items-center gap-2">
-            <img src="/Logo.png" alt="Logo" className="w-16 h-16 mr-2 select-none pointer-events-none" draggable={false} />
-            <span className="text-4xl md:text-5xl font-extrabold text-white font-[Montserrat] tracking-tight">
-              graf
-              <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent ml-0.5">xr</span>
-            </span>
+            <Image width={500} height={500} src="/Grafixrt-logo-new.png" alt="Logo" className="w-60 h-60 mr-2 select-none pointer-events-none" draggable={false} />
           </span>
         </div>
 
@@ -61,11 +57,11 @@ export default function Footer() {
               aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="https://www.linkedin.com/in/your-linkedin-handle" target="_blank" rel="noopener noreferrer"
+            {/* <a href="https://www.linkedin.com/in/your-linkedin-handle" target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 text-white text-2xl transition-transform transform hover:scale-125"
               aria-label="LinkedIn">
               <FaLinkedinIn />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

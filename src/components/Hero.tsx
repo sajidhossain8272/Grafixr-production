@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Hero: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -92,33 +93,26 @@ const Hero: React.FC = () => {
   }}
 >
             {/* IMAGE */}
-            <img
-              src="/bg-home.jpg"
+            <Image
+              src="/man-working.webp"
+              width={500}
+              height={500}
               alt="profile"
-              className="w-full h-full object-cover grayscale"
+              className="w-full h-full object-cover grayscale opacity-30 rounded-[32px] sm:rounded-[44px] md:rounded-[64px]"
               draggable={false}
             />
 
             {/* LOGO & BRAND TEXT */}
             <div className="absolute left-3 sm:left-6 md:left-8 bottom-6 sm:bottom-10 md:bottom-12 flex items-center gap-2 sm:gap-3 z-10">
-              <img
-                src="/Logo.png"
+              <Image
+                src="/Grafixrt-logo-new.png"
+                width={500}
+                height={500}
                 alt="Logo"
-                className="w-10 h-10 sm:w-14 sm:h-14 drop-shadow-[0_2px_16px_rgba(229,50,215,0.8)]"
+                className="w-40 h-40 sm:w-80 sm:h-80 drop-shadow-[0_2px_16px_rgba(229,50,215,0.8)]"
               />
-              <span
-                className={`
-                  text-[1.7rem] sm:text-[2.3rem] md:text-[2.8rem] lg:text-5xl
-                  font-extrabold tracking-tight
-                  ${isDark ? 'text-white' : 'text-white'}
-                `}
-                style={{ fontFamily: 'Montserrat, Arial, sans-serif' }}
-              >
-                graf
-                <span className="text-transparent bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text">
-                  xr
-                </span>
-              </span>
+        
+             
             </div>
           </div>
           {/* THEME TOGGLE (top right, functional) */}

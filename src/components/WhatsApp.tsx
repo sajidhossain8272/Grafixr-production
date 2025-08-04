@@ -31,6 +31,7 @@ const glowTransition = {
 } as const;
 
 const WhatsApp: React.FC = () => (
+  
   <a
     href="https://wa.link/8aofmz"
     className="fixed bottom-4 right-4 z-50 group"
@@ -38,7 +39,7 @@ const WhatsApp: React.FC = () => (
     rel="noopener noreferrer"
   >
     <MotionDiv
-      className="bg-green-500 text-white rounded-full lg:p-4 p-5 cursor-pointer"
+      className="bg-green-500 text-white rounded-full lg:p-4 p-3 cursor-pointer"
       animate={glowKeyframes}
       transition={glowTransition}
     >

@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowRight, FaPhoneAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useRouter } from 'next/navigation';
+
 
 export default function AboutPage() {
   const [email, setEmail] = useState("");
@@ -56,6 +59,7 @@ export default function AboutPage() {
       return () => clearTimeout(timer);
     }
   }, [showModal]);
+  const router = useRouter();
 
   return (
     <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] px-1 sm:px-2 relative overflow-hidden">
@@ -120,16 +124,22 @@ export default function AboutPage() {
         </motion.div>
 
         {/* Upper Right Arrow */}
-        <motion.img
-          src="/Arrow-upper-right.png"
-          alt="Upper right arrow"
-          className="absolute right-3 top-4 w-[26px] sm:w-[32px] md:w-[32px] z-10"
-          initial={{ opacity: 0, y: -25, scale: 0.9, rotate: 25 }}
-          animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.1, delay: 0.45 }}
-          draggable={false}
-          style={{ pointerEvents: "none" }}
-        />
+   <div
+      onClick={() => router.push('/contact')}
+      className="cursor-pointer"
+      style={{ position: 'absolute', top: '1rem', right: '0.75rem', zIndex: 50 }}
+    >
+      <motion.img
+        src="/Arrow-upper-right.png"
+        alt="Upper right arrow"
+        className="w-[26px] sm:w-[32px] md:w-[32px]"
+        initial={{ opacity: 0, y: -25, scale: 0.9, rotate: 25 }}
+        animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+        transition={{ duration: 1.1, delay: 0.45 }}
+        draggable={false}
+        style={{ pointerEvents: 'none' }}
+      />
+    </div>
 
         {/* Main Content */}
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-0 justify-between relative z-10 min-h-[360px] sm:min-h-[400px]">
@@ -155,32 +165,41 @@ export default function AboutPage() {
               </div>
             </motion.div>
             {/* Animated Gradient Arrow Button */}
-            <motion.button
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.7 }}
-              className="mt-5 sm:mt-7 flex items-center gap-3 px-6 sm:px-8 py-2 rounded-full border-2 border-white/40 bg-black/70 transition shadow-[0_0_18px_2px_rgba(56,246,255,0.13)] hover:shadow-xl focus:outline-none active:scale-98"
-              style={{
-                background:
-                  "linear-gradient(92deg,rgba(56,246,255,0.10) 0%,rgba(253,67,173,0.18) 100%)",
-                color: "#fff",
-                fontWeight: 600,
-                fontFamily: "Montserrat,sans-serif",
-                fontSize: "1rem",
-              }}
-            >
-              <img
-                src="/Arrow-upper-right.png"
-                alt="Gradient Arrow"
-                className="w-7 h-7 sm:w-10 sm:h-10 mr-1"
-                draggable={false}
-                style={{ filter: "drop-shadow(0 2px 10px #31ffe655)" }}
-              />
-              <span className="hidden sm:inline">Let’s Connect</span>
-              <span className="inline sm:hidden">
-                <FaArrowRight className="text-lg" />
-              </span>
-            </motion.button>
+    <a
+  href="https://wa.link/8aofmz"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <motion.button
+    initial={{ opacity: 0, scale: 0.7 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1, delay: 0.7 }}
+    className="mt-5 sm:mt-7 flex items-center gap-3 cursor-pointer px-6 sm:px-8 py-2 rounded-full border-2 border-white/40 bg-black/70 transition shadow-[0_0_18px_2px_rgba(56,246,255,0.13)] hover:shadow-xl focus:outline-none active:scale-98"
+    style={{
+      background:
+        "linear-gradient(92deg,rgba(56,246,255,0.10) 0%,rgba(253,67,173,0.18) 100%)",
+      color: "#fff",
+      fontWeight: 600,
+      fontFamily: "Montserrat,sans-serif",
+      fontSize: "1rem",
+    }}
+  >
+    <Image
+      height={28}
+      width={28}
+      src="/Arrow-upper-right.png"
+      alt="Gradient Arrow"
+      className="w-7 h-7 sm:w-10 sm:h-10 mr-1"
+      draggable={false}
+      style={{ filter: "drop-shadow(0 2px 10px #31ffe655)" }}
+    />
+    <span className="">Let’s Connect</span>
+    <span className="inline sm:hidden">
+      <FaArrowRight className="text-lg" />
+    </span>
+  </motion.button>
+</a>
+
           </div>
           {/* Right: Description */}
           <motion.div
