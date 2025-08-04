@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
@@ -64,27 +65,24 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-title" content="Grafixr" />
-        {/* Google Analytics */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-Y4WW57N2R5"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-Y4WW57N2R5', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
+        {/* No analytics scripts directly here! */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-500`}
       >
+        {/* Google Analytics - best practice */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y4WW57N2R5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y4WW57N2R5');
+          `}
+        </Script>
         <Providers>
           <Suspense fallback={null}>
             <Navigation />
