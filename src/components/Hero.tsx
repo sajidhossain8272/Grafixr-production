@@ -125,7 +125,7 @@ const Hero: React.FC = () => {
         width={400}
         height={400}
         alt="Logo"
-        className="w-20 h-20 sm:w-28 sm:h-28 drop-shadow-[0_2px_20px_rgba(229,50,215,0.7)]"
+        className="w-40 h-40 sm:w-60 sm:h-60 drop-shadow-[0_2px_20px_rgba(229,50,215,0.7)]"
       />
     </div>
   </div>
@@ -133,20 +133,23 @@ const Hero: React.FC = () => {
 
 
         {/* 3D CUBE: bottom left of the image card, adapts position for mobile */}
-        <img
-          src='/Cube.png'
-          alt='Cube'
-          className={`
-            absolute
-            left-1/5 md:left-[54%]
-            bottom-[2%] sm:bottom-[4%] md:bottom-[6%]
-            w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 object-contain
-            z-[11]
-            -translate-x-1/2 md:translate-x-0
-            [transform:translate(-50%,0)_rotate(-15deg)]
-          `}
-          draggable={false}
-        />
+  <Image
+  width={180}
+  height={180}
+  src="/Cube.png"
+  alt="Cube"
+  className={`
+    absolute
+    left-1/5 md:left-[54%]
+    bottom-[2%] sm:bottom-[4%] md:bottom-[6%]
+    w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 object-contain
+    z-[11]
+    -translate-x-1/2 md:translate-x-0
+    animate-float
+  `}
+  draggable={false}
+/>
+
 
         {/* OUTER BORDER */}
         <div
