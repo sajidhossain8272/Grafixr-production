@@ -31,6 +31,22 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='Grafixr' />
+          <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y4WW57N2R5"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Y4WW57N2R5', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-500`}
