@@ -112,7 +112,7 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: -30, rotate: 20 }}
           animate={{ opacity: 1, y: 0, rotate: 0 }}
           transition={{ duration: 1, delay: 0.32 }}
-          className="absolute right-[-28px] top-[32px] w-[58px] md:w-[90px] lg:w-[120px] z-0 hidden sm:block"
+          className="absolute right-[-28px] top-[52px] w-[58px] md:w-[90px] lg:w-[120px] z-0 hidden sm:block"
         >
           <svg width="100%" height="100%" viewBox="0 0 120 120">
             <g>
