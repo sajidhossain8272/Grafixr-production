@@ -36,7 +36,7 @@ export default function ClientReviews() {
           Real feedback from those we’ve helped bring their ideas to life.
         </p>
       </div>
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-[97rem] mx-auto px-4">
         <Swiper
           modules={[Autoplay, Pagination]}
           spaceBetween={32}

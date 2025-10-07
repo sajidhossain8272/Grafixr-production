@@ -77,7 +77,7 @@ export default function Home() {
             <Hero />
           </section>
 
-          <section aria-label="Fonts We Work With">
+          <section className="hidden lg:block" aria-label="Fonts We Work With">
             <FontsWeWorkWith />
           </section>
 

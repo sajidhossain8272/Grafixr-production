@@ -23,7 +23,7 @@ export default function FeedbackGrid() {
   }, [API_URL]);
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] relative py-0 px-0 overflow-hidden pt-40">
+    <section className="min-h-screen w-full flex items-center justify-center bg-[#18181B] relative py-0 px-0 overflow-hidden pt-20">
       {/* Faint BG gradient overlays for subtle glassmorphism glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/3 left-0 w-2/3 h-2/3 rounded-full bg-gradient-to-br from-[#31ffe633] via-[#fd43ad26] to-transparent blur-3xl opacity-60" />

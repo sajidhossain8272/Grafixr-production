@@ -214,7 +214,7 @@ export default function Navigation() {
             "linear-gradient(90deg, #101013 0%, #18181B 55%, #23232b 100%)",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-[97rem] mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex h-16 items-center justify-between">
             {/* Logo Placeholder */}
             {/* <Link href="/" className="flex-shrink-0">

@@ -37,7 +37,7 @@ export default function PortfolioPage() {
 
         {/* Main heading */}
         <h1
-          className="text-white text-5xl sm:text-6xl font-extrabold tracking-tight text-left mt-16 mb-16 pl-4 md:pl-0"
+          className="text-white text-5xl sm:text-6xl font-extrabold tracking-tight text-left mt-16 pl-4 md:pl-0"
           style={{
             fontFamily: "Montserrat, Arial, sans-serif",
             letterSpacing: "-1px",
