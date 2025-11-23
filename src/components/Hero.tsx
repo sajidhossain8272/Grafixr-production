@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <section className='w-full min-h-screen flex items-center justify-center bg-black dark:bg-black px-2 transition-colors duration-500'>
+    <section className='w-full py-17 md:mt-20 flex items-center justify-center bg-black dark:bg-black px-2 transition-colors duration-500'>
       <div
         className={`
           relative w-full max-w-[1460px] 
@@ -65,9 +65,10 @@ const Hero: React.FC = () => {
             `}
             style={{ fontFamily: "Montserrat, Arial, sans-serif" }}
           >
-            Hello! I am a professional Graphic Designer Since 2017. I Have a
-            team to Help me. I also provide other services through my expert
-            team members.
+            Welcome to Grafixr — a creative digital agency founded by Rony.
+            We’re a team of passionate professionals, each experienced in our
+            own field. This is how our team is organized — so you can place your
+            order with full confidence.
           </p>
           <button
             className='w-[160px] sm:w-[195px] h-[44px] sm:h-[54px] flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 via-white to-pink-500 shadow-md transition hover:scale-105 font-bold text-base sm:text-xl text-gray-900'
@@ -77,68 +78,68 @@ const Hero: React.FC = () => {
           </button>
         </div>
 
-      {/* RIGHT SIDE */}
-<div className="relative flex justify-center items-center w-[300px] sm:w-[360px] md:w-[420px] h-[260px] sm:h-[320px] md:h-[360px] z-10">
-  {/* OUTER WHITE BORDER */}
-  <div
-    className="absolute inset-0 z-0"
-    style={{
-      clipPath: `
+        {/* RIGHT SIDE */}
+        <div className='relative flex justify-center items-center w-[300px] sm:w-[360px] md:w-[420px] h-[260px] sm:h-[320px] md:h-[360px] z-10'>
+          {/* OUTER WHITE BORDER */}
+          <div
+            className='absolute inset-0 z-0'
+            style={{
+              clipPath: `
         polygon(
           30% 4%, 72% 3%, 100% 42%,
           85% 100%, 22% 100%, 0% 48%
         )`,
-      background: "#ffffff",
-      padding: "5px",
-    }}
-  ></div>
+              background: "#ffffff",
+              padding: "5px",
+            }}
+          ></div>
 
-  {/* INNER HEX SHAPE */}
-  <div
-    className="relative w-full h-full flex items-center justify-center z-10"
-    style={{
-      clipPath: `
+          {/* INNER HEX SHAPE */}
+          <div
+            className='relative w-full h-full flex items-center justify-center z-10'
+            style={{
+              clipPath: `
         polygon(
           30% 4%, 72% 3%, 100% 42%,
           85% 100%, 22% 100%, 0% 48%
         )`,
-      overflow: "hidden",
-      background: "linear-gradient(145deg, #111113, #181818)",
-      transform: "perspective(800px) rotateX(3deg)",
-      boxShadow: "0 0 50px rgba(255, 255, 255, 0.07), 0 0 20px rgba(229, 50, 215, 0.2)",
-    }}
-  >
-    {/* BACKGROUND IMAGE */}
-    <Image
-      src="/man-working.webp"
-      width={500}
-      height={500}
-      alt="Profile"
-      className="w-full h-full object-cover brightness-[0.85] grayscale contrast-125 opacity-35"
-      draggable={false}
-    />
+              overflow: "hidden",
+              background: "linear-gradient(145deg, #111113, #181818)",
+              transform: "perspective(800px) rotateX(3deg)",
+              boxShadow:
+                "0 0 50px rgba(255, 255, 255, 0.07), 0 0 20px rgba(229, 50, 215, 0.2)",
+            }}
+          >
+            {/* BACKGROUND IMAGE */}
+            <Image
+              src='/rony.jpg'
+              width={500}
+              height={500}
+              alt='Profile'
+              className='w-full h-full object-cover brightness-[0.85] grayscale contrast-125 opacity-35'
+              draggable={false}
+            />
 
-    {/* LOGO */}
-    <div className="absolute bottom-4 sm:bottom-6 flex justify-center items-center w-full z-20">
-      <Image
-        src="/Grafixrt-logo-new.png"
-        width={400}
-        height={400}
-        alt="Logo"
-        className="w-40 h-40 sm:w-60 sm:h-60 drop-shadow-[0_2px_20px_rgba(229,50,215,0.7)]"
-      />
-    </div>
-  </div>
-</div>
-
+            {/* LOGO */}
+            <div className='absolute bottom-4 sm:bottom-6 flex justify-center items-center w-full z-20'>
+              <Image
+                src='/Grafixrt-logo-new.png'
+                width={400}
+                height={400}
+                alt='Logo'
+                className='w-40 h-40 sm:w-60 sm:h-60 drop-shadow-[0_2px_20px_rgba(229,50,215,0.7)]'
+              />
+            </div>
+          </div>
+        </div>
 
         {/* 3D CUBE: bottom left of the image card, adapts position for mobile */}
-  <Image
-  width={180}
-  height={180}
-  src="/Cube.png"
-  alt="Cube"
-  className={`
+        <Image
+          width={180}
+          height={180}
+          src='/Cube.png'
+          alt='Cube'
+          className={`
     absolute
     left-1/5 md:left-[54%]
     bottom-[2%] sm:bottom-[4%] md:bottom-[6%]
@@ -147,9 +148,8 @@ const Hero: React.FC = () => {
     -translate-x-1/2 md:translate-x-0
     animate-float 
   `}
-  draggable={false}
-/>
-
+          draggable={false}
+        />
 
         {/* OUTER BORDER */}
         <div
@@ -158,7 +158,6 @@ const Hero: React.FC = () => {
           }`}
           style={{ zIndex: 0 }}
         />
-        
       </div>
     </section>
   );

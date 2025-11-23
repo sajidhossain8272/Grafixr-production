@@ -34,7 +34,7 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
   loading = false,
   error = null,
 }) => (
-  <section className="py-20 bg-black text-white transition-colors duration-500">
+  <section className="lg:py-20 bg-black text-white transition-colors duration-500">
     <div className="max-w-[97rem] mx-auto px-4">
       <motion.h2
         className="text-5xl md:text-6xl font-extrabold text-center mb-2 tracking-tight"

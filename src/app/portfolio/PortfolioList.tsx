@@ -17,7 +17,7 @@ export interface PortfolioItem {
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 20;
 
 function titleize(str: string) {
   return str.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -88,6 +88,7 @@ export default function PortfolioList() {
   }, [items, selectedSubCategory, searchTerm]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+
   const paginated = useMemo(() => {
     const start = (page - 1) * ITEMS_PER_PAGE;
     return filtered.slice(start, start + ITEMS_PER_PAGE);
@@ -226,36 +227,46 @@ export default function PortfolioList() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className='flex items-center justify-center gap-2 mt-12 select-none'>
+            <div
+              className='
+                flex flex-wrap sm:flex-nowrap items-center justify-center
+                gap-2 mt-12 select-none max-w-full
+              '
+            >
               <button
                 disabled={page === 1}
                 onClick={() => goToPage(page - 1)}
-                className='px-4 py-2 rounded-full text-white/80 font-semibold border-2 border-white/10 hover:bg-cyan-400/10 transition disabled:opacity-40'
+                className='px-3 py-1.5 rounded-full text-white/80 text-sm font-semibold border-2 border-white/10 hover:bg-cyan-400/10 transition disabled:opacity-40'
               >
                 Prev
               </button>
-              {[...Array(totalPages)].map((_, idx) => (
-                <button
-                  key={idx + 1}
-                  className={`
-                    px-4 py-2 rounded-full mx-1 font-bold
-                    ${
-                      page === idx + 1
-                        ? "bg-cyan-400 text-black shadow-lg border-cyan-400 border-2"
-                        : "bg-black/40 text-white/80 border-2 border-white/10 hover:bg-cyan-400/10"
-                    }
-                    transition
-                  `}
-                  onClick={() => goToPage(idx + 1)}
-                  aria-current={page === idx + 1 ? "page" : undefined}
-                >
-                  {idx + 1}
-                </button>
-              ))}
+
+              {/* Page numbers wrap on mobile */}
+              <div className='flex flex-wrap justify-center gap-2 mx-1'>
+                {[...Array(totalPages)].map((_, idx) => (
+                  <button
+                    key={idx + 1}
+                    className={`
+                      px-3 py-1.5 rounded-full text-sm font-bold
+                      ${
+                        page === idx + 1
+                          ? "bg-cyan-400 text-black shadow-lg border-cyan-400 border-2"
+                          : "bg-black/40 text-white/80 border-2 border-white/10 hover:bg-cyan-400/10"
+                      }
+                      transition
+                    `}
+                    onClick={() => goToPage(idx + 1)}
+                    aria-current={page === idx + 1 ? "page" : undefined}
+                  >
+                    {idx + 1}
+                  </button>
+                ))}
+              </div>
+
               <button
                 disabled={page === totalPages}
                 onClick={() => goToPage(page + 1)}
-                className='px-4 py-2 rounded-full text-white/80 font-semibold border-2 border-white/10 hover:bg-cyan-400/10 transition disabled:opacity-40'
+                className='px-3 py-1.5 rounded-full text-white/80 text-sm font-semibold border-2 border-white/10 hover:bg-cyan-400/10 transition disabled:opacity-40'
               >
                 Next
               </button>
