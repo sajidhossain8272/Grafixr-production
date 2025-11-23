@@ -263,7 +263,7 @@ export default function PortfolioItemClient({ id }: Props) {
               loading='eager'
             />
             <div className='mt-2 text-center text-cyan-100 text-sm sm:text-base font-semibold drop-shadow'>
-              {lightboxIndex! + 1} / {files.length} — {title}
+              {title}
             </div>
           </div>
         </div>
