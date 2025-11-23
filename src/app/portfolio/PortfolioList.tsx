@@ -126,7 +126,7 @@ export default function PortfolioList() {
   }
 
   return (
-    <div className='w-full max-w-7xl mx-auto px-4 py-12'>
+    <div className='w-full max-w-7xl mx-auto px-4 lg:py-12'>
       {/* Filters */}
       <div className='mb-12 flex flex-wrap gap-4 items-center justify-center'>
         <div>
