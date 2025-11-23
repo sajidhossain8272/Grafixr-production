@@ -8,6 +8,7 @@ import Hero from "@/components/Hero";
 import FontsWeWorkWith from "@/components/FontsWeWorkWith";
 import RecentProjects from "@/components/RecentProjects";
 import Script from "next/script";
+import VideoSection from "@/components/VideoSection";
 // import Script from "next/script"; // Uncomment if adding JSON-LD
 
 interface PortfolioItem {
@@ -22,7 +23,6 @@ interface PortfolioItem {
 }
 
 // SEO metadata export for Next.js App Router
-
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -52,48 +52,54 @@ export default function Home() {
 
   return (
     <>
-   
-      <Script id="org-jsonld" type="application/ld+json">
+      <Script id='org-jsonld' type='application/ld+json'>
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "GrafiXr",
-          "url": "https://grafixr.com",
-          "logo": "https://grafixr.com/Logo.png",
-          "sameAs": [
+          name: "GrafiXr",
+          url: "https://grafixr.com",
+          logo: "https://grafixr.com/Logo.png",
+          sameAs: [
             "https://instagram.com/grafixr07",
-            "https://youtube.com/@GrafiXr07"
-          ]
+            "https://youtube.com/@GrafiXr07",
+          ],
         })}
       </Script>
-     
 
-      <div className="min-h-screen bg-black text-white transition-colors duration-500">
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+      <div className='min-h-screen bg-black text-white transition-colors duration-500'>
+        <ToastContainer position='top-right' autoClose={3000} hideProgressBar />
 
         <main>
           {/* Hero should include the page's <h1> for SEO */}
-          <section aria-label="Hero & Introduction">
+          <section aria-label='Hero & Introduction'>
             <Hero />
           </section>
 
-          <section className="hidden lg:block" aria-label="Fonts We Work With">
+          <section className='hidden lg:block' aria-label='Fonts We Work With'>
             <FontsWeWorkWith />
           </section>
 
-          <section aria-label="Recent Projects">
+          <section aria-label='Recent Projects'>
             <RecentProjects
               latest={latest}
               loading={loadingLatest}
               error={errorLatest}
             />
           </section>
+          {/* 🔹 NEW: YouTube video section */}
+          {/* <section aria-label="Grafixr YouTube Videos">
+            <VideoShowcase />
+          </section> */}
 
-          <section aria-label="Client Reviews">
+          {/* 🔥 Scroll-reactive background video section */}
+          <section aria-label='Grafixr Visual Mood'>
+            <VideoSection />
+          </section>
+          <section aria-label='Client Reviews'>
             <ClientReviews />
           </section>
 
-          <section aria-label="Call to Action">
+          <section aria-label='Call to Action'>
             <CTASection />
           </section>
         </main>
