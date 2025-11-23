@@ -63,7 +63,7 @@ export default function ClientReviews() {
   }, [API_URL]);
 
   return (
-    <section className='relative py-24 bg-black transition-colors duration-500'>
+    <section className='relative py-10 md:py-24 bg-black transition-colors duration-500'>
       {/* Content constrained like other sections */}
       <div className='relative z-10 max-w-[1460px] mx-auto px-4 sm:px-6'>
         {/* Header */}

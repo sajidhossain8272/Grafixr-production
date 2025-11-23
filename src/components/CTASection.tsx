@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const CTASection: React.FC = () => {
   return (
-    <section className="flex justify-center items-center py-14 px-2 bg-black transition-colors duration-500">
+    <section className="flex justify-center items-center md:py-14 px-2 bg-black transition-colors duration-500">
       <div className="relative w-full max-w-[1500px] rounded-[48px] border border-white/70  px-6 md:px-0 py-12 md:py-20 bg-black  flex flex-col items-center text-center overflow-hidden">
      {/* Left Cube */}
 <Image

@@ -30,7 +30,7 @@ const VideoSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="w-full bg-black py-14 md:py-16 px-2 sm:px-4 md:px-6">
+    <section className="w-full bg-black pt-10 sm:pt-0 md:py-16 px-2 sm:px-4 md:px-6">
       {/* 👇 same max width as Hero: max-w-[1460px] */}
       <div className="w-full max-w-[1460px] mx-auto relative">
         {/* Glow */}
@@ -53,7 +53,7 @@ const VideoSection: React.FC = () => {
           {/* LEFT – text */}
           <div className="md:w-2/5 flex flex-col justify-center space-y-4">
             <p className="text-[11px] uppercase tracking-[0.25em] text-white/50">
-              GRAFIXR STUDIO LIFE
+              GRAFIXR STUDIO
             </p>
             <h2
               className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white"
@@ -118,7 +118,7 @@ const VideoSection: React.FC = () => {
                 <span className="font-medium tracking-wide">
                   Behind the scenes of building for brands
                 </span>
-                <span className="text-white/50">Real projects. Real timelines.</span>
+                <span className="text-white/50">Quality without <br />compromise.</span>
               </div>
             </div>
           </div>
