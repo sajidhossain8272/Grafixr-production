@@ -46,7 +46,7 @@ const RecentProjects: React.FC<RecentProjectsProps> = ({
         RECENT PROJECTS
       </motion.h2>
       <motion.p
-        className="text-center text-lg md:text-xl text-white/90 mb-14 max-w-2xl mx-auto font-semibold"
+        className="text-center text-md md:text-xl text-white/90 mb-14 max-w-2xl mx-auto font-semibold"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}

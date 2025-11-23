@@ -174,12 +174,12 @@ export default function PortfolioItemClient({ id }: Props) {
                   loading={idx === 0 ? "eager" : "lazy"}
                 />
                 {/* overlays */}
-                <div className='absolute top-2 right-2 bg-black/60 text-cyan-100 text-xs px-2 py-1 rounded-lg shadow-lg select-none z-10'>
+                {/* <div className='absolute top-2 right-2 bg-black/60 text-cyan-100 text-xs px-2 py-1 rounded-lg shadow-lg select-none z-10'>
                   {idx + 1}/{files.length}
                 </div>
                 <div className='absolute bottom-2 left-2 text-white/80 text-xs bg-black/50 px-2 py-0.5 rounded-lg hidden sm:block z-10'>
                   Click to enlarge
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

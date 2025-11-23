@@ -84,8 +84,13 @@ export default function Navigation() {
   // Close menus on click outside or ESC
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenCategory(null);
-      if (isMenuOpen && mobileRef.current && !mobileRef.current.contains(e.target as Node))
+      if (navRef.current && !navRef.current.contains(e.target as Node))
+        setOpenCategory(null);
+      if (
+        isMenuOpen &&
+        mobileRef.current &&
+        !mobileRef.current.contains(e.target as Node)
+      )
         setIsMenuOpen(false);
       if (
         searchRef.current &&
@@ -143,8 +148,12 @@ export default function Navigation() {
     }
     setSearchLoading(true);
     const timeout = setTimeout(() => {
-      fetch(`${API_URL}/portfolio?search=${encodeURIComponent(searchInput.trim())}`)
-        .then(res => res.ok ? res.json() : [])
+      fetch(
+        `${API_URL}/portfolio?search=${encodeURIComponent(
+          searchInput.trim()
+        )}`
+      )
+        .then((res) => (res.ok ? res.json() : []))
         .then((results: SearchPortfolioItem[]) => {
           setSearchResults(results.slice(0, 8));
           setSearchLoading(false);
@@ -177,16 +186,22 @@ export default function Navigation() {
   function handleSearchKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (!searchResults.length) return;
     if (e.key === "ArrowDown") {
-      setFocusedIdx(idx => (idx + 1) % searchResults.length);
+      setFocusedIdx((idx) => (idx + 1) % searchResults.length);
     } else if (e.key === "ArrowUp") {
-      setFocusedIdx(idx => (idx - 1 + searchResults.length) % searchResults.length);
-    } else if (e.key === "Enter" && focusedIdx >= 0 && focusedIdx < searchResults.length) {
+      setFocusedIdx(
+        (idx) => (idx - 1 + searchResults.length) % searchResults.length
+      );
+    } else if (
+      e.key === "Enter" &&
+      focusedIdx >= 0 &&
+      focusedIdx < searchResults.length
+    ) {
       e.preventDefault();
       handleResultClick(searchResults[focusedIdx]._id);
     }
   }
 
-  // Search submit handler: If dropdown is open and an item is focused, go to that item; else route to portfolio with search param
+  // Search submit handler
   function handleSearchSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (showDropdown && focusedIdx >= 0 && focusedIdx < searchResults.length) {
@@ -227,7 +242,9 @@ export default function Navigation() {
                 <Link
                   href="/"
                   className={clsx(
-                    isActive("/") ? "text-cyan-400 drop-shadow-[0_2px_10px_#31ffe6cc] font-bold" : "hover:text-cyan-300 transition"
+                    isActive("/")
+                      ? "text-cyan-400 drop-shadow-[0_2px_10px_#31ffe6cc] font-bold"
+                      : "hover:text-cyan-300 transition"
                   )}
                 >
                   HOME
@@ -301,11 +318,15 @@ export default function Navigation() {
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="md:hidden p-2 text-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300"
             >
-              {isMenuOpen ? <FaTimes className="w-7 h-7" /> : <FaBars className="w-7 h-7" />}
+              {isMenuOpen ? (
+                <FaTimes className="w-7 h-7" />
+              ) : (
+                <FaBars className="w-7 h-7" />
+              )}
             </button>
 
             {/* Search Bar (ALWAYS on right, even on mobile) */}
-            <div className="relative" style={{ maxWidth: "280px" }}>
+            <div className="relative w-[60vw] max-w-[320px] sm:w-[260px]">
               <form
                 onSubmit={handleSearchSubmit}
                 className="flex items-center gap-2 md:static md:ml-4 md:relative z-50"
@@ -339,9 +360,10 @@ export default function Navigation() {
                       exit={{ opacity: 0, y: 8 }}
                       className={`
                         search-dropdown absolute left-0 top-full mt-2
-                        w-[320px] max-w-[92vw]
+                        w-full sm:w-[320px] max-w-[92vw]
                         bg-[#18181B] border-2 border-cyan-400/40
                         rounded-2xl shadow-2xl z-[9999] py-2
+                        max-h-[70vh] overflow-y-auto
                       `}
                       style={{
                         pointerEvents: "auto",
@@ -376,8 +398,9 @@ export default function Navigation() {
                                 alt={item.title}
                                 className="w-full h-full object-cover"
                                 style={{ borderRadius: 8 }}
-                                onError={e => {
-                                  (e.target as HTMLImageElement).style.display = "none";
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display =
+                                    "none";
                                 }}
                               />
                             </div>
@@ -386,7 +409,8 @@ export default function Navigation() {
                                 {item.title}
                               </div>
                               <div className="text-xs text-white/60">
-                                {titleize(item.mainCategory)} • {titleize(item.subCategory)}
+                                {titleize(item.mainCategory)} •{" "}
+                                {titleize(item.subCategory)}
                               </div>
                             </div>
                           </button>
@@ -425,17 +449,33 @@ export default function Navigation() {
 
             <ul className="space-y-9 text-2xl font-bold mt-2 mb-8">
               <li>
-                <Link href="/" onClick={toggleMenu} className="block hover:text-cyan-300 transition">Home</Link>
+                <Link
+                  href="/"
+                  onClick={toggleMenu}
+                  className="block hover:text-cyan-300 transition"
+                >
+                  Home
+                </Link>
               </li>
               <li>
-                <Link href="/portfolio" onClick={toggleMenu} className="block hover:text-pink-400 transition">Portfolio</Link>
+                <Link
+                  href="/portfolio"
+                  onClick={toggleMenu}
+                  className="block hover:text-pink-400 transition"
+                >
+                  Portfolio
+                </Link>
               </li>
               {categories.map((cat) => (
                 <li key={cat._id}>
-                  <div className="mb-2 text-[1.2em] text-cyan-300">{titleize(cat.mainCategory)}</div>
+                  <div className="mb-2 text-[1.2em] text-cyan-300">
+                    {titleize(cat.mainCategory)}
+                  </div>
                   <ul className="ml-4 space-y-2 text-lg">
                     {cat.subCategories.map((sub) => {
-                      const qs = new URLSearchParams({ subCategory: sub }).toString();
+                      const qs = new URLSearchParams({
+                        subCategory: sub,
+                      }).toString();
                       return (
                         <li key={sub}>
                           <Link
@@ -452,10 +492,22 @@ export default function Navigation() {
                 </li>
               ))}
               <li>
-                <Link href="/feedback" onClick={toggleMenu} className="block hover:text-cyan-300 transition">Feedback</Link>
+                <Link
+                  href="/feedback"
+                  onClick={toggleMenu}
+                  className="block hover:text-cyan-300 transition"
+                >
+                  Feedback
+                </Link>
               </li>
               <li>
-                <Link href="/about" onClick={toggleMenu} className="block hover:text-pink-400 transition">About</Link>
+                <Link
+                  href="/about"
+                  onClick={toggleMenu}
+                  className="block hover:text-pink-400 transition"
+                >
+                  About
+                </Link>
               </li>
             </ul>
           </motion.div>

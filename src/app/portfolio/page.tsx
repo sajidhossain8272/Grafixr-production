@@ -37,7 +37,7 @@ export default function PortfolioPage() {
 
         {/* Main heading */}
         <h1
-          className="text-white text-5xl sm:text-6xl font-extrabold tracking-tight text-left mt-16 pl-4 md:pl-0"
+          className="text-white text-4xl sm:text-6xl font-extrabold tracking-tight text-left mt-16 pl-4 md:pl-0"
           style={{
             fontFamily: "Montserrat, Arial, sans-serif",
             letterSpacing: "-1px",
@@ -47,7 +47,7 @@ export default function PortfolioPage() {
         </h1>
 
         {/* Portfolio Grid List */}
-        <div className="w-full px-1 sm:px-4 md:px-8 py-4 sm:py-8">
+        <div className="w-full px-1 sm:px-4 md:px-8 lg:py-4 sm:py-8">
           <Suspense
             fallback={
               <div className="flex justify-center items-center py-32">
@@ -55,7 +55,7 @@ export default function PortfolioPage() {
               </div>
             }
           >
-            <div className="w-full max-w-7xl mx-auto pt-20">
+            <div className="w-full max-w-7xl mx-auto pt-8 lg:pt-20">
             <PortfolioList />
             </div>
           </Suspense>
