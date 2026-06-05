@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GrafiXr – Modern Design Agency | Recent Projects & Reviews",
   description:
-    "Discover GrafiXr's portfolio, recent projects, glowing client reviews, and the premium fonts we work with. Experience your brand’s next visual breakthrough with us.",
+    "Discover GrafiXr's portfolio, recent projects, glowing client reviews, and the premium fonts we work with. Experience your brand's next visual breakthrough with us.",
   keywords:
     "GrafiXr, design agency, modern portfolio, creative reviews, branding, web design, client testimonials, premium fonts",
   openGraph: {
@@ -72,7 +72,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen transition-colors duration-500`}
       >
         {/* Google Analytics - best practice */}
-        <Script
+        {/* <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y4WW57N2R5"
           strategy="afterInteractive"
         />
@@ -83,7 +83,7 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', 'G-Y4WW57N2R5');
           `}
-        </Script>
+        </Script> */}
         <Providers>
           <Suspense fallback={null}>
             <Navigation />
