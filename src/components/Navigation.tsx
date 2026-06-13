@@ -280,7 +280,7 @@ export default function Navigation() {
                   >
                     {cat.mainCategory === "graphic-design" && <FaDesktop />}
                     {cat.mainCategory === "video-editing" && <FaVideo />}
-                    {cat.mainCategory === "website-development" && <FaCode />}
+                    {cat.mainCategory === "web-development" && <FaCode />}
                     {titleize(cat.mainCategory)}
                   </button>
                   {/* Hover Dropdown for Subcategories */}
