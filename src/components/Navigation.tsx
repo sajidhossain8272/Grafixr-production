@@ -39,6 +39,18 @@ function titleize(str: string) {
   return str.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function sortCategories(cats: Category[]): Category[] {
+  const categoryOrder = {
+    "graphic-design": 1,
+    "web-development": 2,
+  };
+  return [...cats].sort((a, b) => {
+    const orderA = categoryOrder[a.mainCategory as keyof typeof categoryOrder] ?? 999;
+    const orderB = categoryOrder[b.mainCategory as keyof typeof categoryOrder] ?? 999;
+    return orderA - orderB;
+  });
+}
+
 export default function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
@@ -262,30 +274,44 @@ export default function Navigation() {
                   PORTFOLIO
                 </Link>
               </li>
-              {/* {categories.map((cat) => (
-                <li key={cat._id} className="relative">
+              {sortCategories(categories).map((cat) => (
+                <li key={cat._id} className="relative group">
                   <button
-                    onClick={() => toggleCategory(cat.mainCategory)}
                     className={clsx(
-                      "flex items-center gap-2 px-3 py-1 hover:text-cyan-300 hover:drop-shadow-[0_2px_10px_#31ffe6] rounded transition",
-                      openCategory === cat.mainCategory && "bg-cyan-400/10 text-cyan-300"
+                      "flex items-center gap-2 px-3 py-1 hover:text-cyan-300 hover:drop-shadow-[0_2px_10px_#31ffe6] rounded transition"
                     )}
                   >
                     {cat.mainCategory === "graphic-design" && <FaDesktop />}
                     {cat.mainCategory === "video-editing" && <FaVideo />}
-                    {cat.mainCategory === "web-development" && <FaCode />}
+                    {cat.mainCategory === "website-development" && <FaCode />}
                     {titleize(cat.mainCategory)}
-                    <span
-                      className={clsx(
-                        "ml-1 text-xs inline-block transition-transform duration-150",
-                        openCategory === cat.mainCategory ? "rotate-0" : "rotate-45"
-                      )}
-                    >
-                      <FaTimes />
-                    </span>
                   </button>
+                  {/* Hover Dropdown for Subcategories */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute left-0 top-full hidden group-hover:block pt-2 z-40"
+                  >
+                    <div className="bg-[#1a1a22] border border-cyan-400/30 rounded-lg shadow-2xl py-2 min-w-[200px]">
+                      {cat.subCategories.map((sub) => {
+                        const qs = new URLSearchParams({
+                          subCategory: sub,
+                        }).toString();
+                        return (
+                          <Link
+                            key={sub}
+                            href={`/portfolio?${qs}`}
+                            className="block px-4 py-2 hover:bg-cyan-400/20 hover:text-cyan-300 transition text-sm text-white/80"
+                          >
+                            {titleize(sub)}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
                 </li>
-              ))} */}
+              ))}
               <li>
                 <Link
                   href="/feedback"
@@ -466,29 +492,54 @@ export default function Navigation() {
                   Portfolio
                 </Link>
               </li>
-              {categories.map((cat) => (
+              {sortCategories(categories).map((cat) => (
                 <li key={cat._id}>
-                  <div className="mb-2 text-[1.2em] text-cyan-300">
-                    {titleize(cat.mainCategory)}
-                  </div>
-                  <ul className="ml-4 space-y-2 text-lg">
-                    {cat.subCategories.map((sub) => {
-                      const qs = new URLSearchParams({
-                        subCategory: sub,
-                      }).toString();
-                      return (
-                        <li key={sub}>
-                          <Link
-                            href={`/portfolio?${qs}`}
-                            onClick={toggleMenu}
-                            className="block hover:text-pink-300 transition"
-                          >
-                            {titleize(sub)}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <button
+                    onClick={() => toggleCategory(cat.mainCategory)}
+                    className="flex items-center justify-between w-full text-[1.2em] text-cyan-300 hover:text-cyan-200 transition mb-2"
+                  >
+                    <span className="flex items-center gap-2">
+                      {cat.mainCategory === "graphic-design" && <FaDesktop />}
+                      {cat.mainCategory === "video-editing" && <FaVideo />}
+                      {cat.mainCategory === "web-development" && <FaCode />}
+                      {titleize(cat.mainCategory)}
+                    </span>
+                    <span
+                      className={clsx(
+                        "text-sm transition-transform duration-200",
+                        openCategory === cat.mainCategory ? "rotate-0" : "-rotate-90"
+                      )}
+                    >
+                      ▼
+                    </span>
+                  </button>
+                  <AnimatePresence>
+                    {openCategory === cat.mainCategory && (
+                      <motion.ul
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="ml-4 space-y-2 text-lg overflow-hidden"
+                      >
+                        {cat.subCategories.map((sub) => {
+                          const qs = new URLSearchParams({
+                            subCategory: sub,
+                          }).toString();
+                          return (
+                            <li key={sub}>
+                              <Link
+                                href={`/portfolio?${qs}`}
+                                onClick={toggleMenu}
+                                className="block hover:text-pink-300 transition"
+                              >
+                                {titleize(sub)}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
                 </li>
               ))}
               <li>
