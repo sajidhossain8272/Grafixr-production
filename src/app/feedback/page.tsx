@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -99,17 +100,21 @@ export default function FeedbackGrid() {
               >
                 {/* 3D Ellipse: left for left/top card, right for right/bottom card */}
                 {idx % 2 === 0 ? (
-                  <img
+                  <Image
                     src='/Base-design.png'
                     alt='Ellipse'
+                    width={100}
+                    height={100}
                     className='absolute -left-16 top-14 w-[100px] z-10 select-none pointer-events-none'
                     draggable={false}
                     style={{ filter: "drop-shadow(0 4px 22px #31ffe677)" }}
                   />
                 ) : (
-                  <img
+                  <Image
                     src='/Base-design.png'
                     alt='Ellipse'
+                    width={100}
+                    height={100}
                     className='absolute -right-16 bottom-10 w-[100px] z-10 rotate-180 select-none pointer-events-none'
                     draggable={false}
                     style={{ filter: "drop-shadow(0 2px 20px #e93baffb)" }}
@@ -149,9 +154,11 @@ export default function FeedbackGrid() {
                   transition={{ delay: 0.5 + idx * 0.08, duration: 0.8 }}
                 >
                   <div className='w-24 h-24 rounded-full border-[5px] border-white/90 bg-gradient-to-br from-[#c7fffc] via-[#81d9f7] to-[#fd43ad] shadow-[0_6px_32px_0_rgba(56,246,255,0.19)] flex items-center justify-center overflow-hidden'>
-                    <img
+                    <Image
                       src={r.photo}
                       alt={r.name}
+                      width={82}
+                      height={82}
                       className='w-[82px] h-[82px] rounded-full object-cover'
                       draggable={false}
                       style={{ boxShadow: "0 2px 18px 4px #fd43ad22" }}

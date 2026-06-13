@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, FormEvent } from "react";
+import Image from "next/image";
 
 interface Props {
   title: string;
@@ -157,7 +158,13 @@ export default function AdminUploadForm({
             {previewUrls.map((url, i) => (
               <div key={i} className="rounded-xl border border-cyan-400/30 overflow-hidden bg-white/10 shadow-inner max-w-[180px]">
                 {mediaType === "image" ? (
-                  <img src={url} alt={`preview ${i}`} className="max-h-40 w-auto mx-auto block" />
+                  <Image
+                    src={url}
+                    alt={`preview ${i}`}
+                    width={180}
+                    height={160}
+                    className="max-h-40 w-auto mx-auto block"
+                  />
                 ) : (
                   <video src={url} controls className="max-h-40 w-auto mx-auto block" />
                 )}

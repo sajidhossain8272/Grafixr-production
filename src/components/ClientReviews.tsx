@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
@@ -60,6 +61,7 @@ export default function ClientReviews() {
     } else {
       setReviews(defaultReviews);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [API_URL]);
 
   return (
@@ -165,9 +167,11 @@ const ReviewCard = ({ review, index }: { review: Review; index: number }) => {
             <div className='relative'>
               <div className='absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm' />
               <div className='relative w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2px] bg-gradient-to-br from-white/20 to-white/5'>
-                <img
+                <Image
                   src={review.photo}
                   alt={review.name}
+                  width={64}
+                  height={64}
                   className='w-full h-full rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500'
                 />
               </div>

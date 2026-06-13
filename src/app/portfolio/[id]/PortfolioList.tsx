@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 
 interface PortfolioItem {
@@ -167,9 +168,10 @@ export default function PortfolioItemClient({ id }: Props) {
                   max-h-[82vh]             /* never exceed viewport */
                 '
               >
-                <img
+                <NextImage
                   src={src}
                   alt={`${title} image ${idx + 1}`}
+                  fill
                   className='absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300'
                   loading={idx === 0 ? "eager" : "lazy"}
                 />
@@ -256,9 +258,10 @@ export default function PortfolioItemClient({ id }: Props) {
           )}
 
           <div className='max-h-full max-w-full flex flex-col items-center'>
-            <img
+            <NextImage
               src={files[lightboxIndex!]}
               alt={`${title} full view ${lightboxIndex! + 1}`}
+              fill
               className='max-h-[82vh] max-w-[96vw] w-full object-contain rounded-lg border-2 border-cyan-200/30 shadow-2xl bg-black/80'
               loading='eager'
             />

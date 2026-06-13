@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -15,9 +15,7 @@ import {
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CYAN = "#31ffe6";
-const PINK = "#fd43ad";
-const DARK = "#18181B";
+
 
 interface Category {
   _id: string;
@@ -148,7 +146,6 @@ export default function Navigation() {
   // Keep searchInput in sync with URL's "search" param (if changed externally)
   useEffect(() => {
     setSearchInput(searchParams.get("search") ?? "");
-    // eslint-disable-next-line
   }, [searchParams]);
 
   // LIVE SEARCH: Fetch results as user types (debounced)
@@ -419,16 +416,19 @@ export default function Navigation() {
                             tabIndex={-1}
                           >
                             <div className="w-12 h-12 rounded-xl bg-cyan-400/10 border border-cyan-300 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                              <img
-                                src={item.files?.[0]}
-                                alt={item.title}
-                                className="w-full h-full object-cover"
-                                style={{ borderRadius: 8 }}
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display =
-                                    "none";
-                                }}
-                              />
+                              {item.files?.[0] && (
+                                <Image
+                                  src={item.files[0]}
+                                  alt={item.title}
+                                  width={48}
+                                  height={48}
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).style.display =
+                                      "none";
+                                  }}
+                                />
+                              )}
                             </div>
                             <div>
                               <div className="font-bold text-cyan-200 leading-tight">

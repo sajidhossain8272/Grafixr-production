@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -203,9 +204,10 @@ export default function PortfolioList() {
                   >
                     {/* Media: strict 4:3 like Dribbble */}
                     <div className='relative w-full aspect-[4/3] overflow-hidden'>
-                      <img
+                      <Image
                         src={cover}
                         alt={item.title}
+                        fill
                         className='absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]'
                       />
                     </div>

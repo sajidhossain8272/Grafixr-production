@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 const clients = [
   {
@@ -43,9 +44,11 @@ export default function ClientsSection() {
               key={client.name}
               className="w-24 h-24 grayscale hover:grayscale-0 transition"
             >
-              <img
+              <Image
                 src={client.logo}
                 alt={client.name}
+                width={96}
+                height={96}
                 className="w-full h-full object-contain"
               />
             </div>

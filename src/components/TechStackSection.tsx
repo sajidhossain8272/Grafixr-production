@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 const technologies = [
   {
@@ -44,9 +45,11 @@ export default function TechStackSection() {
         <div className="flex flex-wrap justify-center gap-8">
           {technologies.map((tech) => (
             <div key={tech.name} className="flex flex-col items-center w-24">
-              <img
+              <Image
                 src={tech.logo}
                 alt={tech.name}
+                width={48}
+                height={48}
                 className="w-12 h-12 object-contain"
               />
               <p className="text-sm mt-2 text-gray-700 text-center">{tech.name}</p>
