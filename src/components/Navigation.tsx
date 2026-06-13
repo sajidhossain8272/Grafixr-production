@@ -69,6 +69,34 @@ export default function Navigation() {
   const searchRef = useRef<HTMLInputElement>(null);
   const lastScrollY = useRef(0);
 
+  // Load menu state from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedMenuOpen = localStorage.getItem("mobileMenuOpen") === "true";
+      const savedOpenCategory = localStorage.getItem("mobileOpenCategory");
+      setIsMenuOpen(savedMenuOpen);
+      setOpenCategory(savedOpenCategory);
+    }
+  }, []);
+
+  // Persist menu open/close state to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("mobileMenuOpen", String(isMenuOpen));
+    }
+  }, [isMenuOpen]);
+
+  // Persist open category state to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (openCategory) {
+        localStorage.setItem("mobileOpenCategory", openCategory);
+      } else {
+        localStorage.removeItem("mobileOpenCategory");
+      }
+    }
+  }, [openCategory]);
+
   // Fetch categories
   useEffect(() => {
     fetch(`${API_URL}/admin/categories`)
@@ -246,7 +274,7 @@ export default function Navigation() {
             </Link> */}
 
             {/* Desktop Menu */}
-            <ul className="hidden md:flex items-center space-x-10 font-semibold text-[1.13rem] tracking-tight">
+            <ul className="hidden md:flex items-center space-x-10 font-semibold text-base tracking-tight">
               <li>
                 <Link
                   href="/"
@@ -274,8 +302,14 @@ export default function Navigation() {
               {sortCategories(categories).map((cat) => (
                 <li key={cat._id} className="relative group">
                   <button
+                    onClick={() => {
+                      const qs = new URLSearchParams({
+                        mainCategory: cat.mainCategory,
+                      }).toString();
+                      router.push(`/portfolio?${qs}`);
+                    }}
                     className={clsx(
-                      "flex items-center gap-2 px-3 py-1 hover:text-cyan-300 hover:drop-shadow-[0_2px_10px_#31ffe6] rounded transition"
+                      "flex items-center gap-2 px-3 py-1 hover:text-cyan-300 hover:drop-shadow-[0_2px_10px_#31ffe6] rounded transition cursor-pointer"
                     )}
                   >
                     {cat.mainCategory === "graphic-design" && <FaDesktop />}
@@ -291,20 +325,27 @@ export default function Navigation() {
                     className="absolute left-0 top-full hidden group-hover:block pt-2 z-40"
                   >
                     <div className="bg-[#1a1a22] border border-cyan-400/30 rounded-lg shadow-2xl py-2 min-w-[200px]">
-                      {cat.subCategories.map((sub) => {
-                        const qs = new URLSearchParams({
-                          subCategory: sub,
-                        }).toString();
-                        return (
-                          <Link
-                            key={sub}
-                            href={`/portfolio?${qs}`}
-                            className="block px-4 py-2 hover:bg-cyan-400/20 hover:text-cyan-300 transition text-sm text-white/80"
-                          >
-                            {titleize(sub)}
-                          </Link>
-                        );
-                      })}
+                      {cat.subCategories.length === 0 ? (
+                        <div className="px-4 py-3 text-gray-400 text-sm text-center">
+                          No subcategories available
+                        </div>
+                      ) : (
+                        cat.subCategories.map((sub) => {
+                          const qs = new URLSearchParams({
+                            mainCategory: cat.mainCategory,
+                            subCategory: sub,
+                          }).toString();
+                          return (
+                            <Link
+                              key={sub}
+                              href={`/portfolio?${qs}`}
+                              className="block px-4 py-2 hover:bg-cyan-400/20 hover:text-cyan-300 transition text-sm text-white/80"
+                            >
+                              {titleize(sub)}
+                            </Link>
+                          );
+                        })
+                      )}
                     </div>
                   </motion.div>
                 </li>
@@ -473,7 +514,7 @@ export default function Navigation() {
               <FaTimes className="w-7 h-7" />
             </button>
 
-            <ul className="space-y-9 text-2xl font-bold mt-2 mb-8">
+            <ul className="space-y-6 text-lg font-bold mt-2 mb-8">
               <li>
                 <Link
                   href="/"
@@ -496,7 +537,7 @@ export default function Navigation() {
                 <li key={cat._id}>
                   <button
                     onClick={() => toggleCategory(cat.mainCategory)}
-                    className="flex items-center justify-between w-full text-[1.2em] text-cyan-300 hover:text-cyan-200 transition mb-2"
+                    className="flex items-center justify-between w-full text-lg text-cyan-300 hover:text-cyan-200 transition mb-2"
                   >
                     <span className="flex items-center gap-2">
                       {cat.mainCategory === "graphic-design" && <FaDesktop />}
@@ -519,7 +560,7 @@ export default function Navigation() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="ml-4 space-y-2 text-lg overflow-hidden"
+                        className="ml-4 space-y-2 text-base overflow-hidden"
                       >
                         {cat.subCategories.map((sub) => {
                           const qs = new URLSearchParams({
